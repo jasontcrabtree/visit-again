@@ -2,8 +2,6 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
-  FormControl,
   FormLabel,
   Heading,
   Input,
@@ -11,7 +9,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   SimpleGrid,
@@ -22,15 +19,13 @@ import {
   TabPanels,
   Tabs,
   Text,
-  useClipboard,
   useColorMode,
   useColorModeValue,
   useDisclosure,
   VStack,
   Wrap,
 } from '@chakra-ui/react';
-import React, { useRef, useState } from 'react';
-import EmailNumberHeading from '../components/EmailNumberHeading';
+import React, { useState } from 'react';
 import SalesEmailEight from '../components/emails/SalesEmailEight';
 import SalesEmailFive from '../components/emails/SalesEmailFive';
 import SalesEmailFour from '../components/emails/SalesEmailFour';
@@ -40,43 +35,15 @@ import SalesEmailSeven from '../components/emails/SalesEmailSeven';
 import SalesEmailSix from '../components/emails/SalesEmailSix';
 import SalesEmailThree from '../components/emails/SalesEmailThree';
 import SalesEmailTwo from '../components/emails/SalesEmailTwo';
-import SalesEmail from '../components/SalesEmail';
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [value, setValue] = useState('');
-  // const { hasCopied, onCopy } = useClipboard(value);
 
-  // subjectLine,
-  //   greeting,
-  //   bodyText,
-  //   placeholders,
-  //   signoff,
-  //   companyName,
-
-  const [placeholder, setPlaceholder] = useState('');
   const [subjectLine, setSubjectLine] = useState('');
   const [greetingPlusName, setGreetingPlusName] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [signoff, setSignoff] = useState('');
-  // const [placeholder, setPlaceholder] = useState('');
-  // const [placeholder, setPlaceholder] = useState('');
-
-  const { hasCopied, onCopy } = useClipboard(subjectLine || '');
-
-  // function setPlaceholder(e) {
-  //   e.preventDefault();
-  // }
-
-  const textRef = useRef();
-
-  // console.log(textRef.current.innerText);
-
-  function copyText(e) {
-    e.preventDefault();
-    // setValue(textRef.current.innerText);
-  }
 
   function clearState() {
     setSubjectLine('');
@@ -96,7 +63,8 @@ export default function Home() {
   return (
     <VStack
       m="auto"
-      p={{ sm: 6, md: 8, lg: 16 }}
+      // p={{ sm: 6, md: 8, lg: 16 }}
+      p={[5, 8, 16]}
       mb="40"
       spacing={12}
       align="stretch"
@@ -117,6 +85,8 @@ export default function Home() {
         </Heading>
         <Spacer />
         <Button
+          my={4}
+          mr={4}
           onClick={clearState}
           px="4"
           py="4"
@@ -131,9 +101,9 @@ export default function Home() {
         </Button>
         <Button
           onClick={toggleColorMode}
-          ml="4"
           px="4"
           py="4"
+          justifyContent="center"
           w="fit-content"
           bg={actionColor}
           color={actionText}
@@ -224,18 +194,13 @@ export default function Home() {
           Quickview Emails
         </Heading>
         <Box>
-          <Button onClick={onOpen}>Quick View Emails as Slideshow</Button>
+          <Button type="button" onClick={onOpen}>
+            Quick View Emails
+          </Button>
 
           <Modal isOpen={isOpen} onClose={onClose} size="4xl">
             <ModalOverlay />
-            <ModalContent
-              // p="12"
-              // py="6"
-              p={[2, 6, 12]}
-              bg={bg}
-              color={color}
-              top={-6}
-            >
+            <ModalContent p={[2, 6, 12]} bg={bg} color={color} top={-6}>
               <ModalHeader>Sales Emails Lightbox</ModalHeader>
               <ModalCloseButton />
 
@@ -359,11 +324,8 @@ export default function Home() {
         <Heading as="h2" size="lg">
           Emails
         </Heading>
-        {/* <Button onClick={onCopy} ml={2}>
-          {hasCopied ? 'Copied' : 'Copy'}
-        </Button> */}
         <SimpleGrid
-          /* minChildWidth={[240, 320, 560]} */ columns={{ sm: 1, md: 2 }}
+          columns={{ sm: 1, md: 2 }}
           spacingY="24"
           spacingX={{ sm: 4, lg: 6, xl: 12 }}
         >

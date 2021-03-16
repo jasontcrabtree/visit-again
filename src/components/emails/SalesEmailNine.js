@@ -1,4 +1,4 @@
-import { Box, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
 import React from 'react';
 import EmailNumberHeading from '../EmailNumberHeading';
 
@@ -31,6 +31,7 @@ function SalesEmailNine({
       >
         {subjectLine}
       </Text>
+
       <VStack
         boxShadow="base"
         spacing={2}
@@ -40,12 +41,30 @@ function SalesEmailNine({
         p="8"
         align="stetch"
       >
+        <Tag
+          colorScheme="pink"
+          size="md"
+          width="fit-content"
+          p="2"
+          textTransform="uppercase"
+          fontWeight="bold"
+        >
+          Follow Up Email
+        </Tag>
         <Text>- - -</Text>
         <Text>{greeting}</Text>
 
-        <Text>TODO</Text>
+        <Text>
+          I'm sending a final follow-up email to ask if you received my recent
+          enquiry about a website project for{' '}
+          <Text as="span" display="inline" color="purple.500" fontWeight="500">
+            {companyName}
+          </Text>
+          . Please do let me know if you'd like to hear more — I look forward to
+          hearing from you.
+        </Text>
 
-        <Text>{signoff}</Text>
+        <Text>Thanks for your time,</Text>
         <Text>- - -</Text>
         <Text>Jason Crabtree</Text>
       </VStack>

@@ -4,6 +4,7 @@ import {
   Divider,
   FormLabel,
   Heading,
+  HStack,
   Input,
   Modal,
   ModalBody,
@@ -24,6 +25,7 @@ import {
   useDisclosure,
   VStack,
   Wrap,
+  WrapItem,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import SalesEmailEight from '../components/emails/SalesEmailEight';
@@ -66,15 +68,15 @@ export default function Home() {
       // p={{ sm: 6, md: 8, lg: 16 }}
       p={[5, 8, 16]}
       mb="40"
-      spacing={12}
+      spacing={6}
       align="stretch"
       bg={bg}
       color={color}
       shadow="md"
       borderRadius="md"
-      maxWidth={[320, 640, 1480]}
+      maxWidth={[360, 640, 1480]}
     >
-      <Wrap>
+      <Wrap alignItems="center">
         <Heading
           as="h1"
           fontSize="3xl"
@@ -85,7 +87,7 @@ export default function Home() {
         </Heading>
         <Spacer />
         <Button
-          my={4}
+          mb={4}
           mr={4}
           onClick={clearState}
           px="4"
@@ -109,92 +111,19 @@ export default function Home() {
           color={actionText}
           size="sm"
           align="flex-end"
-          alignSelf="center"
         >
           Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
         </Button>
       </Wrap>
 
-      <Box>
-        <Heading as="h2" size="md" mb="8">
-          Email Placeholder Inputs
-        </Heading>
-        <SimpleGrid columns={2} spacing={2}>
-          <FormLabel htmlFor="subjectLine">
-            Subject Line{' '}
-            <Text as="em" display="inline" color="gray.400">
-              ~50ch
-            </Text>
-            <Input
-              bg={whiteBG}
-              color={color}
-              mt="2"
-              autoComplete="disable"
-              type="text"
-              name="subjectLine"
-              value={subjectLine}
-              onChange={(e) => setSubjectLine(e.target.value)}
-            />
-          </FormLabel>
-          <FormLabel htmlFor="greeting">
-            Email Greeting{' '}
-            <Text as="em" display="inline" color="gray.400">
-              e.g. HI PERSON
-            </Text>
-            <Input
-              bg={whiteBG}
-              color={color}
-              mt="2"
-              autoComplete="disable"
-              type="text"
-              name="greeting"
-              value={greetingPlusName}
-              onChange={(e) => setGreetingPlusName(e.target.value)}
-            />
-          </FormLabel>
-          <FormLabel htmlFor="businessName">
-            Business Name{' '}
-            <Text as="em" display="inline" color="gray.400">
-              BUSINESS NAME
-            </Text>
-            <Input
-              bg={whiteBG}
-              color={color}
-              mt="2"
-              autoComplete="off"
-              type="text"
-              name="businessName"
-              value={businessName}
-              onChange={(e) => setBusinessName(e.target.value)}
-            />
-          </FormLabel>
-          <FormLabel htmlFor="signoff">
-            Email Signoff{' '}
-            <Text as="em" display="inline" color="gray.400">
-              Warm regards,
-            </Text>
-            <Input
-              bg={whiteBG}
-              color={color}
-              mt="2"
-              autoComplete="disable"
-              type="text"
-              name="signoff"
-              value={signoff}
-              onChange={(e) => setSignoff(e.target.value)}
-            />
-          </FormLabel>
-        </SimpleGrid>
-      </Box>
-
-      <Divider />
-
-      <VStack spacing={6} align="stretch">
-        <Heading as="h2" size="md">
-          Quickview Emails
-        </Heading>
-        <Box>
-          <Button type="button" onClick={onOpen}>
+      <Wrap align="center" spacing={[2, 2, 16]}>
+        <WrapItem>
+          <Heading as="h2" size="md">
+            Quickview Emails
+          </Heading>
+        </WrapItem>
+        <WrapItem>
+          <Button type="button" onClick={onOpen} colorScheme="green">
             Quick View Emails
           </Button>
 
@@ -306,17 +235,84 @@ export default function Home() {
                   </TabPanels>
                 </Tabs>
               </ModalBody>
-
-              {/* <ModalFooter>
-                <Button variant="ghost">Secondary Action</Button>
-                <Button colorScheme="cyan" mr={3} onClick={onClose}>
-                  Close
-                </Button>
-              </ModalFooter> */}
             </ModalContent>
           </Modal>
-        </Box>
-      </VStack>
+        </WrapItem>
+      </Wrap>
+
+      <Divider />
+
+      <Box>
+        <Heading as="h2" size="md" mb="6">
+          Email Placeholder Inputs
+        </Heading>
+        <SimpleGrid columns={2} spacing={2}>
+          <FormLabel htmlFor="subjectLine">
+            Subject Line{' '}
+            <Text as="em" display="inline" color="gray.400">
+              ~50ch
+            </Text>
+            <Input
+              bg={whiteBG}
+              color={color}
+              mt="2"
+              autoComplete="disable"
+              type="text"
+              name="subjectLine"
+              value={subjectLine}
+              onChange={(e) => setSubjectLine(e.target.value)}
+            />
+          </FormLabel>
+          <FormLabel htmlFor="greeting">
+            Email Greeting{' '}
+            <Text as="em" display="inline" color="gray.400">
+              e.g. HI PERSON
+            </Text>
+            <Input
+              bg={whiteBG}
+              color={color}
+              mt="2"
+              autoComplete="disable"
+              type="text"
+              name="greeting"
+              value={greetingPlusName}
+              onChange={(e) => setGreetingPlusName(e.target.value)}
+            />
+          </FormLabel>
+          <FormLabel htmlFor="businessName">
+            Business Name{' '}
+            <Text as="em" display="inline" color="gray.400">
+              BUSINESS NAME
+            </Text>
+            <Input
+              bg={whiteBG}
+              color={color}
+              mt="2"
+              autoComplete="off"
+              type="text"
+              name="businessName"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+            />
+          </FormLabel>
+          <FormLabel htmlFor="signoff">
+            Email Signoff{' '}
+            <Text as="em" display="inline" color="gray.400">
+              Warm regards,
+            </Text>
+            <Input
+              bg={whiteBG}
+              color={color}
+              mt="2"
+              autoComplete="disable"
+              type="text"
+              name="signoff"
+              value={signoff}
+              onChange={(e) => setSignoff(e.target.value)}
+            />
+          </FormLabel>
+        </SimpleGrid>
+      </Box>
 
       <Divider />
 
@@ -329,6 +325,13 @@ export default function Home() {
           spacingY="24"
           spacingX={{ sm: 4, lg: 6, xl: 12 }}
         >
+          <SalesEmailNine
+            number="Nine"
+            subjectLine={subjectLine || 'SUBJECT LINE'}
+            greeting={greetingPlusName || 'HI PERSON'}
+            companyName={businessName || 'BUSINESS NAME'}
+            signoff={signoff || 'EMAIL SIGN OFF'}
+          />
           <SalesEmailOne
             number="One"
             subjectLine={subjectLine || 'SUBJECT LINE'}
@@ -380,13 +383,6 @@ export default function Home() {
           />
           <SalesEmailEight
             number="Eight"
-            subjectLine={subjectLine || 'SUBJECT LINE'}
-            greeting={greetingPlusName || 'HI PERSON'}
-            companyName={businessName || 'BUSINESS NAME'}
-            signoff={signoff || 'EMAIL SIGN OFF'}
-          />
-          <SalesEmailNine
-            number="Nine"
             subjectLine={subjectLine || 'SUBJECT LINE'}
             greeting={greetingPlusName || 'HI PERSON'}
             companyName={businessName || 'BUSINESS NAME'}

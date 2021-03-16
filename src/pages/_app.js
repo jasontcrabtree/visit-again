@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ColorModeScript initialColorMode={customTheme.config.initialColorMode} />
       <ChakraProvider resetCSS theme={customTheme}>
-        <Box w="100%" h="100%" p={[4, 8, 24]}>
+        <Box w="100%" h="100%" p={[4, 8, 24]} pt={[4, 8, 12]}>
           <Component {...pageProps} />
         </Box>
       </ChakraProvider>

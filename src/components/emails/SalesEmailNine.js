@@ -64,9 +64,11 @@ function SalesEmailNine({
           hearing from you.
         </Text>
 
-        <Text>Thanks for your time,</Text>
-        <Text>- - -</Text>
-        <Text>Jason Crabtree</Text>
+        <Text>
+          Thanks for your time,
+          <br />
+          Jason
+        </Text>
       </VStack>
     </VStack>
   );

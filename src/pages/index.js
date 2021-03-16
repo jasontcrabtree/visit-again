@@ -325,13 +325,6 @@ export default function Home() {
           spacingY="24"
           spacingX={{ sm: 4, lg: 6, xl: 12 }}
         >
-          <SalesEmailNine
-            number="Nine"
-            subjectLine={subjectLine || 'SUBJECT LINE'}
-            greeting={greetingPlusName || 'HI PERSON'}
-            companyName={businessName || 'BUSINESS NAME'}
-            signoff={signoff || 'EMAIL SIGN OFF'}
-          />
           <SalesEmailOne
             number="One"
             subjectLine={subjectLine || 'SUBJECT LINE'}
@@ -383,6 +376,13 @@ export default function Home() {
           />
           <SalesEmailEight
             number="Eight"
+            subjectLine={subjectLine || 'SUBJECT LINE'}
+            greeting={greetingPlusName || 'HI PERSON'}
+            companyName={businessName || 'BUSINESS NAME'}
+            signoff={signoff || 'EMAIL SIGN OFF'}
+          />
+          <SalesEmailNine
+            number="Nine"
             subjectLine={subjectLine || 'SUBJECT LINE'}
             greeting={greetingPlusName || 'HI PERSON'}
             companyName={businessName || 'BUSINESS NAME'}

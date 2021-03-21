@@ -1,22 +1,27 @@
 html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  max-width: 40rem;
-  margin: 8rem auto;
-
-  background-color: rgb(25, 31, 37);
-  color: rgb(255, 237, 214);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-* + * {
+main {
+  background-color: rgb(248, 248, 248);
+  padding: 3rem 1.5rem;
+  margin: 4rem auto;
+  max-width: 56rem;
+}
+
+main > * + * {
   margin-top: 2rem;
+}
+
+div > main > *  + * {
+  margin-top: 1.5rem;
 }
 
 button {
   box-sizing: border-box;
-  padding: 8px 24px;
+  padding: 8px 32px;
   border-radius: 4px;
-  border: 1px solid rgb(223, 219, 216);
-  background-color: rgb(255, 237, 214);
   font-size: 1rem;
 }
+
+

@@ -2,8 +2,6 @@ import Head from 'next/head';
 import '../styles/reset.css';
 import '../styles/globals.css';
 
-const hello = 'string';
-
 function MyApp({ Component, pageProps }): any {
   return (
     <>

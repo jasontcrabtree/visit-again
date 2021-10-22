@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Author {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name      String
+  notebooks Notebook[]
+}
+
+model Notebook {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  size         String
+  content      String
+  fullNotebook Boolean @default(false)
+  year         Int?
+
+  Author Author? @relation(fields: [id], references: [id])
+
+  topics NotebookTopic[]
+}
+
+model NotebookTopic {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  topic    String
+  Notebook Notebook? @relation(fields: [id], references: [id])
+}

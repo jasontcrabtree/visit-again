@@ -16,12 +16,14 @@ export default function Home(props: Props): JSX.Element {
   );
 }
 
-export const getServerSideProps = async ({ req }) => {
-  const authors = await prisma.author.findMany({
-    select: { id: true, name: true },
-  });
+export const getServerSideProps = async () => {
+  const authors = await prisma.author.findMany();
 
   console.log(authors);
 
-  return { props: { authors } };
+  return {
+    props: {
+      authors: JSON.parse(JSON.stringify(authors)),
+    },
+  };
 };

@@ -70,7 +70,21 @@ button,
 textarea,
 select,
 fieldset {
+  border-radius: 2px;
+  padding: 8px;
   border: rgb(173, 173, 177) 1px solid;
+}
+
+input[type='submit'] {
+  margin-left: 8px;
+  padding: 8px 24px;
+}
+
+label {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Flex Texarea */

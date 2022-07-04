@@ -1,15 +1,26 @@
+:root {
+  --grey-000: #f8fafc;
+  --grey-400: #94a3b8;
+  --indigo-500: #6366f1;
+  --indigo-800: #3730a3;
+  --indigo-900: #19174d;
+  --indigo-1000: #0b0a26;
+  --emerald-500: #10b981;
+  --emerald-800: #065f46;
+}
+
 html {
   font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: rgb(2, 11, 39);
+  background-color: var(--indigo-1000);
 }
 
 main {
-  color: rgb(248, 248, 248);
-  background-color: rgb(10, 21, 54);
-  padding: 3rem 1.5rem;
-  margin: 4rem auto;
-  max-width: 56rem;
+  color: var(--grey-000);
+  background-color: var(--indigo-900);
+  padding: 3rem 24px;
+  margin: 0 auto;
+  max-width: 1080px;
 }
 
 main > * + * {
@@ -20,9 +31,24 @@ div > main > * + * {
   margin-top: 1.5rem;
 }
 
-button {
+button,
+input[type='submit'] {
   box-sizing: border-box;
   padding: 8px 32px;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 32px;
+  border: none;
+  font-size: 16px;
+  line-height: 32px;
+  cursor: pointer;
+  background-color: var(--indigo-800);
+  color: var(--grey-000);
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  min-height: 48px;
+}
+
+a {
+  color: white;
 }

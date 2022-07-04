@@ -79,8 +79,6 @@ const HeaderStyles = styled.header`
 `;
 
 export default function Header(): JSX.Element {
-  console.log('hi');
-
   return (
     <HeaderStyles>
       <Link href="/" passHref>

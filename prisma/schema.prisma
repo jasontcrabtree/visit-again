@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:bVImkYj41ynRK5RwVFv1@containers-us-west-58.railway.app:7612/railway"
+  url      = env("DATABASE_URL")
 }
 
 // START NEXT AUTH MODELS

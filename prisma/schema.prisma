@@ -91,7 +91,7 @@ model VerificationToken {
 
 // One User Multiple Entries
 model Entry {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -101,7 +101,8 @@ model Entry {
   entryDate   DateTime?
   description String?
   type        Type?     @relation(fields: [typeId], references: [id])
-  rating      Int?
+  // rating      Int?
+  rating      Decimal?
 
   recommended Boolean          @default(false)
   photos      Photo[]
@@ -136,25 +137,25 @@ model Place {
 }
 
 model Photo {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   url           String
   fileName      String
   alternateText String
-  Entry         Entry? @relation(fields: [entryId], references: [id])
-  entryId       Int?
+  Entry         Entry?  @relation(fields: [entryId], references: [id])
+  entryId       String?
 }
 
 model DietaryOptions {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   label   String
   iconURL String
   iconAlt String
-  Entry   Entry? @relation(fields: [entryId], references: [id])
-  entryId Int?
+  Entry   Entry?  @relation(fields: [entryId], references: [id])
+  entryId String?
 }

@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
-import {
-  Coffee,
-  FolderStar,
-  Gear,
-  MagnifyingGlass,
-  PlusCircle,
-  Waves,
-} from 'phosphor-react';
+// import {
+//   Coffee,
+//   FolderStar,
+//   Gear,
+//   MagnifyingGlass,
+//   PlusCircle,
+//   Waves,
+// } from 'phosphor-react';
 import styled from 'styled-components';
 import LoginButton from './loginButton';
 
@@ -83,7 +83,8 @@ export default function Header(): JSX.Element {
     <HeaderStyles>
       <Link href="/" passHref>
         <a className="logo">
-          <Coffee size={24} color="#94a3b8" weight="bold" />{' '}
+          {/* <Coffee size={24} color="#94a3b8" weight="bold" />{' '} */}
+          Coffee
           <span>Visit Again</span>
         </a>
       </Link>
@@ -92,35 +93,40 @@ export default function Header(): JSX.Element {
           <li>
             <Link href="/">
               <a>
-                <Waves size={24} color="#94a3b8" weight="bold" />
+                {/* <Waves size={24} color="#94a3b8" weight="bold" /> */}
+                Waves
               </a>
             </Link>
           </li>
           <li>
             <Link href="/search">
               <a>
-                <MagnifyingGlass size={24} color="#94a3b8" weight="bold" />
+                {/* <MagnifyingGlass size={24} color="#94a3b8" weight="bold" /> */}
+                Search
               </a>
             </Link>
           </li>
           <li>
             <Link href="/add">
               <a>
-                <PlusCircle size={24} color="#94a3b8" weight="bold" />
+                {/* <PlusCircle size={24} color="#94a3b8" weight="bold" /> */}
+                Plus
               </a>
             </Link>
           </li>
           <li>
             <Link href="/watchlist">
               <a>
-                <FolderStar size={24} color="#94a3b8" weight="bold" />
+                {/* <FolderStar size={24} color="#94a3b8" weight="bold" /> */}
+                Star
               </a>
             </Link>
           </li>
           <li>
             <Link href="/settings">
               <a>
-                <Gear size={24} color="#94a3b8" weight="bold" />
+                {/* <Gear size={24} color="#94a3b8" weight="bold" /> */}
+                Cog
               </a>
             </Link>
           </li>

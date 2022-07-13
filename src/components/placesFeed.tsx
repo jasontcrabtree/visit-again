@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 type Place = {
   name: string;
+  address: string;
 };
 
 type Props = {
@@ -25,17 +27,12 @@ const PlacesFeedStyles = styled.div`
     background-color: var(--indigo-1000);
     border: 1px solid transparent;
   }
-
-  li:hover {
-    border: 1px solid var(--indigo-800);
-    background-color: var(--indigo-900);
-  }
 `;
 
 function PlacesFeed(props: Props): JSX.Element {
   const places = props.places;
 
-  console.log(places);
+  //   console.log(places);
 
   return (
     <PlacesFeedStyles className="places">
@@ -43,10 +40,18 @@ function PlacesFeed(props: Props): JSX.Element {
       {places ? (
         <ul>
           {places.map((place, i) => {
-            console.log(place);
+            // console.log(place);
             return (
               <li key={i}>
-                <h3>{place.name}</h3>
+                <Link
+                  href={`/places/${encodeURIComponent(
+                    place.name.replace(' ', '-')
+                  )}`}>
+                  <a>
+                    <h3>{place.name}</h3>
+                  </a>
+                </Link>
+                <p>{place.address}</p>
               </li>
             );
           })}

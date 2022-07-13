@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
-import { UserCircleMinus } from 'phosphor-react';
+// import { UserCircleMinus } from 'phosphor-react';
 import styled from 'styled-components';
 
 const LoginButtonStyles = styled.div`
@@ -64,7 +64,8 @@ export default function LoginButton(): JSX.Element {
         </Link>
         <button onClick={() => signOut()}>
           <span>Sign out</span>
-          <UserCircleMinus size={24} color="#94a3b8" weight="bold" />
+          {/* <UserCircleMinus size={24} color="#94a3b8" weight="bold" /> */}
+          User
         </button>
       </LoginButtonStyles>
     );

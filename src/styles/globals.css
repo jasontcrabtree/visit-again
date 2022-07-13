@@ -13,16 +13,21 @@ html {
   font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--indigo-1000);
+  color: var(--grey-000);
   line-height: 1.5;
 }
 
 main {
-  color: var(--grey-000);
   background-color: var(--indigo-900);
   padding: 32px 24px;
   margin: 48px auto;
   max-width: 720px;
   border-radius: 8px;
+}
+
+img {
+  width: 100%;
+  object-fit: contain;
 }
 
 main > * + * {

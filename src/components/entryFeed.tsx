@@ -1,4 +1,7 @@
+import Link from 'next/link';
+import { Key } from 'react';
 import styled from 'styled-components';
+import { format, parseISO } from 'date-fns';
 
 type Entry = {
   entryName: string;
@@ -6,8 +9,24 @@ type Entry = {
   rating: number;
 };
 
+type Photo = {
+  url: string;
+  alternateText: string;
+};
+
+type SingleEntry = {
+  photos: Photo[];
+  entryName: string;
+  recommended: boolean;
+  place: any;
+  rating: number;
+  entryDate: any;
+  formattedEntryDate: any;
+};
+
 type Props = {
   entries: Entry[];
+  userEntries: any;
 };
 
 const EntryFeedStyles = styled.div`
@@ -28,40 +47,85 @@ const EntryFeedStyles = styled.div`
     border: 1px solid transparent;
   }
 
-  li:hover {
-    border: 1px solid var(--indigo-800);
-    background-color: var(--indigo-900);
+  img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
   }
 `;
 
 function EntryFeed(props: Props): JSX.Element {
-  const entries = props.entries;
+  const userEntries = props.userEntries.entries;
 
   return (
     <EntryFeedStyles className="entries">
       <h3>Entries</h3>
-      {entries ? (
+
+      {userEntries ? (
         <ul>
-          {entries.map((entry, i) => {
-            console.log(entry);
+          {userEntries.map((entry: SingleEntry, i: Key) => {
+            const photos = entry?.photos;
+
+            const formattedEntryDate = parseISO(entry.entryDate);
+
             return (
               <li key={i}>
-                <h3>{entry.entryName}</h3>
                 {entry.recommended ? (
                   <div>Recommended</div>
                 ) : (
                   <div>Not Recommended</div>
                 )}
-                <div>
-                  {entry.rating ? <div>{entry.rating}</div> : <div>0</div>}
-                </div>
+
+                {formattedEntryDate && (
+                  <div>{formattedEntryDate.toString()}</div>
+                )}
+
+                {entry.rating && <div>{entry.rating}</div>}
+
+                {entry.place && (
+                  <div>
+                    <Link
+                      href={`/places/${encodeURIComponent(
+                        entry.place.name.replace(' ', '-')
+                      )}`}>
+                      <a>{entry.place.name && entry.place.name}</a>
+                    </Link>
+                    {/* <Link
+                      href={`/entry/${encodeURIComponent(
+                        entry.place.address.replace(' ', '-')
+                      )}`}>
+                      <a>{entry.place.address && entry.place.address}</a>
+                    </Link> */}
+                  </div>
+                )}
+
+                {photos.length > 0 ? (
+                  photos.map((photo: Photo, photoId: Key) => {
+                    return (
+                      <img
+                        key={photoId}
+                        src={photo.url}
+                        alt={photo.alternateText}
+                      />
+                    );
+                  })
+                ) : (
+                  <div>No photos</div>
+                )}
+
+                <Link
+                  href={`/entry/${encodeURIComponent(
+                    entry.entryName.replace(' ', '-')
+                  )}`}>
+                  <a>
+                    <h3>{entry.entryName}</h3>
+                  </a>
+                </Link>
               </li>
             );
           })}
         </ul>
-      ) : (
-        <div>Loading</div>
-      )}
+      ) : null}
     </EntryFeedStyles>
   );
 }

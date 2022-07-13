@@ -14,9 +14,17 @@ type Props = {
 };
 
 export default function Home(props: Props): JSX.Element {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   const data = props;
+
+  if (!data.userEntries) {
+    return (
+      <main>
+        <h1>No data</h1>
+      </main>
+    );
+  }
 
   const { userEntries } = data;
   const { entries } = data;
@@ -45,6 +53,10 @@ export const getServerSideProps = async (
     context.res,
     authOptions
   );
+
+  if (!session) {
+    return null;
+  }
 
   const entries = await prisma.entry.findMany({
     where: {

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Key } from 'react';
 import styled from 'styled-components';
-import { format, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 type Entry = {
   entryName: string;

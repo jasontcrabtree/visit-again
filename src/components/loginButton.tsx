@@ -9,6 +9,12 @@ const LoginButtonStyles = styled.div`
   align-items: center;
   gap: 16px;
 
+  button {
+    padding: 8px 24px;
+    margin: 0;
+    max-width: unset;
+  }
+
   img {
     width: 40px;
     height: 40px;
@@ -51,16 +57,17 @@ export default function LoginButton(): JSX.Element {
   const { data: session } = useSession();
 
   if (session) {
-    const userInitials = getInitials(session.user.name);
+    const userInitials = getInitials(session?.user.name);
     return (
       <LoginButtonStyles>
-        {/*
-          <Link href="settings">
-            <img src={session.user.image} alt={session.user.name} />
-          </Link>
-        ) */}
         <Link href="settings">
-          <a className="userInitial">{userInitials}</a>
+          <a className="userInitial">
+            {session?.user?.image ? (
+              <img src={session?.user?.image} alt={session?.user?.name} />
+            ) : (
+              <span>{userInitials}</span>
+            )}
+          </a>
         </Link>
         <button onClick={() => signOut()}>
           <span>Sign out</span>

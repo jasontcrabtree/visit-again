@@ -21,6 +21,7 @@ export const authOptions: NextAuthOptions = {
   theme: {
     colorScheme: 'dark',
   },
+  debug: false,
 };
 
 export default NextAuth(authOptions);

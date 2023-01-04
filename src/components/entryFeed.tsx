@@ -68,6 +68,8 @@ function EntryFeed(props: Props): JSX.Element {
 
             const formattedEntryDate = parseISO(entry.entryDate);
 
+            console.log(entry);
+
             return (
               <li key={i}>
                 {entry.recommended ? (

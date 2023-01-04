@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 import prisma from '../../lib/prisma';
 
 export default async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   const values = req.body;
 

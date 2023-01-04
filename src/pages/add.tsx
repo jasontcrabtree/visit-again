@@ -90,7 +90,7 @@ export default function Home(props: Props): JSX.Element {
         entryDate,
       };
 
-      console.log(body);
+      // console.log(body);
 
       await fetch('/api/create', {
         method: 'POST',

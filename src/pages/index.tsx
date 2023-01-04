@@ -71,7 +71,6 @@ export const getServerSideProps = async (
 
     const userEntries = await prisma.user.findUnique({
       where: {
-        // id: 'cl568tf3j000669sab4b5mbk1',
         email: session.user.email,
       },
       select: {

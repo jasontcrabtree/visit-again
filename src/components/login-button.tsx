@@ -1,5 +1,5 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { UserCircleMinus } from 'phosphor-react';
 import styled from 'styled-components';
 

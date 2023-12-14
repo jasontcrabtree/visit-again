@@ -9,7 +9,8 @@ import {
   PlusCircle,
   Waves,
 } from 'phosphor-react';
-import LoginButton from './LoginButton';
+import LoginButton from './login-button';
+
 
 const HeaderStyles = styled.header`
   max-width: 1080px;

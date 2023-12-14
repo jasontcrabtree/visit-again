@@ -67,7 +67,6 @@ const LoginButton = (): JSX.Element => {
           ) : (
             <span>{userInitials}</span>
           )}
-          {/* <span>{userInitials}</span> */}
 
         </Link>
         <button onClick={() => signOut()}>

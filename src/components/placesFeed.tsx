@@ -29,7 +29,7 @@ const PlacesFeedStyles = styled.div`
   }
 `;
 
-function PlacesFeed(props: Props): JSX.Element {
+const PlacesFeed = (props: Props): JSX.Element => {
   const places = props.places;
 
   //   console.log(places);

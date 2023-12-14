@@ -53,7 +53,7 @@ function getInitials(string) {
   return returnedInitals;
 }
 
-function LoginButton(): JSX.Element {
+const LoginButton = (): JSX.Element => {
   const { data: session } = useSession();
 
   if (session) {

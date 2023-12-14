@@ -9,7 +9,6 @@ import {
   PlusCircle,
   Waves,
 } from 'phosphor-react';
-
 import LoginButton from './LoginButton';
 
 const HeaderStyles = styled.header`

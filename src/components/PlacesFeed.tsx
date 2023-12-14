@@ -24,7 +24,6 @@ const PlacesFeedStyles = styled.div`
   li {
     padding: 16px;
     border-radius: 8px;
-    background-color: var(--indigo-1000);
     border: 1px solid transparent;
   }
 `;

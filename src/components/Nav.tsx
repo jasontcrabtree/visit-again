@@ -10,18 +10,24 @@ import {
   Waves,
 } from 'phosphor-react';
 import LoginButton from './LoginButton';
+import { Rock_Salt } from 'next/font/google'
 
+const rockSalt = Rock_Salt({ weight: "400", subsets: ['latin'], preload: true })
 
 const HeaderStyles = styled.header`
+background-color: var(--tw-blue-200);
+background-image: linear-gradient(270deg, #e0f2fe, var(--tw-blue-200));
+color: var(--tw-grey-700);
+
+  nav {
+
   max-width: 1080px;
   margin: 0 auto;
   padding: 24px;
 
-  color: var(--grey-000);
-
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
   gap: 8px;
@@ -34,6 +40,11 @@ const HeaderStyles = styled.header`
     align-items: center;
     text-decoration: none;
     gap: 4px;
+    color: var(--tw-grey-700);
+  }
+
+  a:hover {
+    color: var(--teal-green);
   }
 
   nav {
@@ -51,11 +62,23 @@ const HeaderStyles = styled.header`
   }
 
   .logo {
-    padding: 8px 16px;
+    min-width: 48px;
+    padding: 8px 0;
     border-radius: 96px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--grey-400);
+    font-size: 18px;
+    color: var(--tw-blue-500);
+    fill: var(--tw-blue-500);
+    stroke: var(--tw-blue-500);
+  }
+
+  .logo>svg {
+    stroke: none;
+  }
+
+  .logo:hover, .logo:hover>svg {
+    color: var(--tw-blue-800);
+    fill: var(--tw-blue-800);
+    stroke: var(--tw-blue-800);
   }
 
   @media screen and (max-width: 960px) {
@@ -65,7 +88,6 @@ const HeaderStyles = styled.header`
 
     flex-wrap: wrap;
     justify-content: space-between;
-    box-shadow: 4px 4px 24px 8px rgb(4 3 16 / 63%);
     padding: 16px 24px;
 
     nav {
@@ -76,47 +98,69 @@ const HeaderStyles = styled.header`
       justify-content: space-between;
     }
   }
+  }
 `;
 
-export default function Header(): JSX.Element {
+type HeaderProps = {
+  isLoggedIn: boolean;
+}
+
+export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
+  console.log('isLoggedIn', isLoggedIn);
+
+  if (!isLoggedIn) {
+    return (
+      <HeaderStyles>
+        <nav>
+          <Link href="/" className="logo">
+            <Coffee size={24} weight="bold" />
+            <span className={rockSalt.className}>Visit Again</span>
+          </Link>
+        </nav>
+      </HeaderStyles>
+    )
+  }
+
   return (
     <HeaderStyles>
-      <Link href="/" className="logo">
-        <Coffee size={24} color="#94a3b8" weight="bold" /> {/* Coffee */}
-        <span>Visit Again</span>
-      </Link>
       <nav>
-        <ul>
-          {/* <li>
+        <Link href="/" className="logo">
+          <Coffee size={24} weight="bold" /> {/* Coffee */}
+          <span>Visit Again</span>
+        </Link>
+        <nav>
+          <ul>
+            {/* <li>
             <Link href="/">
-              <Waves size={24} color="#94a3b8" weight="bold" />
+              <Waves size={24} color="var(--teal-green)" weight="bold" />
             </Link>
           </li> */}
-          <li>
-            <Link href="/add">
-              <PlusCircle size={24} color="#94a3b8" weight="bold" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/watchlist">
-              <FolderStar size={24} color="#94a3b8" weight="bold" />
-            </Link>
-          </li>
-          {/* TODO: Implement search */}
-          {/* <li>
+            <li>
+              <Link href="/add">
+                <PlusCircle size={24} color="var(--teal-green)" weight="bold" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/watchlist">
+                <FolderStar size={24} color="var(--teal-green)" weight="bold" />
+              </Link>
+            </li>
+            {/* TODO: Implement search */}
+            {/* <li>
             <Link href="/search">
-              <MagnifyingGlass size={24} color="#94a3b8" weight="bold" />
+              <MagnifyingGlass size={24} color="var(--teal-green)" weight="bold" />
             </Link>
           </li> */}
-          {/* TODO: Implement settings */}
-          {/* <li>
+            {/* TODO: Implement settings */}
+            {/* <li>
             <Link href="/settings">
-              <Gear size={24} color="#94a3b8" weight="bold" />
+              <Gear size={24} color="var(--teal-green)" weight="bold" />
             </Link>
           </li> */}
-        </ul>
+          </ul>
+        </nav>
+        <LoginButton />
       </nav>
-      <LoginButton />
     </HeaderStyles>
   );
 }

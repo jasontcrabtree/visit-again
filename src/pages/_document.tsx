@@ -1,23 +1,3 @@
-// import Document, { Html, Head, Main, NextScript } from 'next/document';
-
-// export default class extends Document {
-//   static async getInitialProps(ctx) {
-//     const initialProps = await Document.getInitialProps(ctx);
-//     return { ...initialProps };
-//   }
-
-//   render(): JSX.Element {
-//     return (
-//       <Html lang="en">
-//         <Head />
-//         <body>
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </Html>
-//     );
-//   }
-// }
 
 import Document, { DocumentContext } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';

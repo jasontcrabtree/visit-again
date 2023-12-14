@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { UserCircleMinus } from 'phosphor-react';
 import styled from 'styled-components';
+import clsx from 'clsx';
 
 const LoginButtonStyles = styled.div`
   display: flex;
@@ -10,9 +11,10 @@ const LoginButtonStyles = styled.div`
   gap: 16px;
 
   button {
-    padding: 8px 24px;
+    padding: 8px 40px;
     margin: 0;
     max-width: unset;
+    border-radius: 100px;
   }
 
   img {
@@ -22,7 +24,6 @@ const LoginButtonStyles = styled.div`
   }
 
   .userInitial {
-    background-color: #94a3b8;
     width: 40px;
     height: 40px;
     border-radius: 96px;
@@ -38,52 +39,44 @@ const LoginButtonStyles = styled.div`
     .userInitial {
       display: none;
     }
-
-    button {
-      padding: 12px;
-    }
   }
 `;
 
 function getInitials(string) {
   const splitString = string.split(' ');
-  const returnedInitals = splitString.map(word => {
-    return word.charAt(0);
-  });
-  return returnedInitals;
+  return splitString.map(word => word.charAt(0)).join('');
 }
 
-const LoginButton = (): JSX.Element => {
+export default function LoginButton({ signUpLabel = "Sign in", variation = "" }): JSX.Element {
   const { data: session } = useSession();
 
-  if (session) {
-    const userInitials = getInitials(session?.user.name);
+  if (!session) {
     return (
       <LoginButtonStyles>
-        <Link href="settings" className="userInitial">
-
-          {session?.user?.image ? (
-            <img src={session?.user?.image} alt={session?.user?.name} />
-          ) : (
-            <span>{userInitials}</span>
-          )}
-
-        </Link>
-        <button onClick={() => signOut()}>
-          <span>Sign out</span>
-          <UserCircleMinus size={24} color="#94a3b8" weight="bold" />
-          {/* User */}
-        </button>
-      </LoginButtonStyles>
+        <button className={clsx(
+          variation === "ghost" ? "button-ghost" : ""
+        )} onClick={() => signIn()}>{signUpLabel}</button>
+      </LoginButtonStyles >
     );
   }
 
+  const userInitials = getInitials(session?.user.name);
   return (
     <LoginButtonStyles>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <Link href="settings" className="userInitial">
+
+        {/* { session?.user?.image ? (
+        <img src={session?.user?.image} alt={session?.user?.name} />
+      ) : (
+        userInitials && <span>{userInitials}</span>
+        )} */}
+        {userInitials && <span>{userInitials}</span>}
+
+      </Link>
+      <button onClick={() => signOut()}>
+        <span>Sign out</span>
+        <UserCircleMinus size={24} color="#94a3b8" weight="bold" />
+      </button>
     </LoginButtonStyles>
   );
-}
-
-export default LoginButton;
+};

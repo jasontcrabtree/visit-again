@@ -25,8 +25,7 @@ type SingleEntry = {
 };
 
 type Props = {
-  entries: Entry[];
-  userEntries: any;
+  userEntries: Entry[];
 };
 
 const EntryFeedStyles = styled.div`
@@ -43,7 +42,6 @@ const EntryFeedStyles = styled.div`
   li {
     padding: 16px;
     border-radius: 8px;
-    background-color: var(--indigo-1000);
     border: 1px solid transparent;
   }
 
@@ -54,15 +52,13 @@ const EntryFeedStyles = styled.div`
   }
 `;
 
-function EntryFeed(props: Props): JSX.Element {
+function EntryFeed({ userEntries }: Props): JSX.Element {
 
-  console.log('props', props);
-
-  const userEntries = props.userEntries.entries;
+  console.log('userEntries', userEntries)
 
   return (
     <EntryFeedStyles className="entries">
-      <h3>Entries</h3>
+      <h1>Entries</h1>
 
       {userEntries ? (
         <ul>
@@ -104,7 +100,7 @@ function EntryFeed(props: Props): JSX.Element {
                   </div>
                 )}
 
-                {photos.length > 0 ? (
+                {/* {photos.length > 0 ? (
                   photos.map((photo: Photo, photoId: Key) => {
                     return (
                       <img
@@ -116,7 +112,7 @@ function EntryFeed(props: Props): JSX.Element {
                   })
                 ) : (
                   <div>No photos</div>
-                )}
+                )} */}
 
                 <Link
                   href={`/entry/${encodeURIComponent(

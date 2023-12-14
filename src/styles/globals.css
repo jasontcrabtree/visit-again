@@ -1,28 +1,38 @@
 :root {
-  --grey-000: #f8fafc;
-  --grey-400: #94a3b8;
-  --indigo-500: #6366f1;
-  --indigo-800: #3730a3;
-  --indigo-900: #19174d;
-  --indigo-1000: #0b0a26;
-  --emerald-500: #10b981;
-  --emerald-800: #065f46;
+  --tw-blue-50: #f0f9ff;
+  --tw-blue-200: #bae6fd;
+  --tw-blue-500: #3b82f6;
+  --tw-blue-800: #1e40af;
+
+  --tw-green-200: #a7f3d0;
+  --tw-green-500: #10b981;
+  --tw-green-800: #065f46;
+
+  --tw-grey-50: #f8fafc;
+  --tw-grey-100: #f1f5f9;
+  --tw-grey-200: #e2e8f0;
+  --tw-grey-300: #cbd5e1;
+  --tw-grey-400: #94a3b8;
+  --tw-grey-500: #64748b;
+  --tw-grey-600: #475569;
+  --tw-grey-700: #334155;
+  --tw-grey-800: #1e293b;
+  --tw-grey-900: #0f172a;
+  --tw-red-700: #b91c1c;
+  --tw-green-700: #047857;
 }
 
 html {
+  background: var(--tw-blue-50);
+  color: var(--tw-grey-800);
   font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--indigo-1000);
-  color: var(--grey-000);
   line-height: 1.5;
 }
 
 main {
-  background-color: var(--indigo-900);
-  padding: 32px 24px;
-  margin: 48px auto;
-  max-width: 720px;
-  border-radius: 8px;
+  padding: 0;
+  width: 100%;
 }
 
 img {
@@ -30,26 +40,21 @@ img {
   object-fit: contain;
 }
 
-main > * + * {
-  margin-top: 2rem;
-}
-
-div > main > * + * {
-  margin-top: 1.5rem;
+a {
+  color: var(--tw-blue-800);
 }
 
 button,
 input[type='submit'] {
   box-sizing: border-box;
   padding: 8px 64px;
-  border-radius: 12px;
+  border-radius: 4px;
   border: none;
   font-size: 16px;
   line-height: 32px;
   cursor: pointer;
-  background-color: var(--indigo-800);
-  color: var(--grey-000);
-  font-weight: 600;
+
+  font-weight: 500;
   letter-spacing: 0.1px;
   display: flex;
   flex-direction: row;
@@ -58,10 +63,21 @@ input[type='submit'] {
   min-height: 48px;
   max-width: fit-content;
   margin: 16px auto;
+
+  background-color: var(--tw-blue-800);
+  border: 1px solid var(--tw-blue-800);
+  color: var(--tw-grey-50);
 }
 
-a {
-  color: white;
+.button-ghost {
+  border: var(--tw-blue-800) 1px solid;
+  color: var(--tw-blue-800);
+  background-color: var(--tw-grey-50);
+}
+
+button:hover,
+input[type='submit']:hover {
+  background-color: var(--tw-blue-500);
 }
 
 h1 {

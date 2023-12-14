@@ -1,10 +1,11 @@
 import prisma from '../lib/prisma';
 import { useState } from 'react';
-import EntryFeed from '../components/EntryFeed';
-import PlacesFeed from '../components/PlacesFeed';
 import { useSession } from 'next-auth/react';
 import { authOptions } from './api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth/next';
+
+import EntryFeed from '../components/EntryFeed';
+import PlacesFeed from '../components/PlacesFeed';
 
 type Props = {
   name: string;

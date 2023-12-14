@@ -1,5 +1,5 @@
 import { authOptions } from './api/auth/[...nextauth]';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getSession } from 'next-auth/react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -64,20 +64,6 @@ export default function Home(props: Props): JSX.Element {
   async function submitNewEntry(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    // console.log(date + 'T' + hour + ':00:000Z'.toISOString());
-
-    // console.log(date);
-
-    // console.log(new Date(date, hour).toISOString());
-
-    // const date2 = new Date('1995-12-17T03:24:00');
-    // Sun Dec 17 1995 03:24:00 GMT...
-
-    // const isoDateString = new Date().toISOString();
-    // console.log(isoDateString);
-
-    // function createDateTime(hourVal, dateVal) {}
-
     try {
       const body = {
         entryName,
@@ -90,7 +76,7 @@ export default function Home(props: Props): JSX.Element {
         entryDate,
       };
 
-      // console.log(body);
+      console.log('body', body);
 
       await fetch('/api/create', {
         method: 'POST',
@@ -133,7 +119,6 @@ export default function Home(props: Props): JSX.Element {
             onChange={e =>
               e.target.checked ? setRecommended(true) : setRecommended(false)
             }
-            // onChange={e => setRecommended(e.target.checked)}
           />
         </label>
 
@@ -205,33 +190,39 @@ export const getServerSideProps = async (
     loggedIn: boolean;
   };
 }> => {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions
-  );
+  // const session = await getServerSession(
+  //   context.req,
+  //   context.res,
+  //   authOptions
+  // );
 
-  if (session) {
-    // const entries = await prisma.entry.findMany({
-    //   where: {
-    //     User: {
-    //       email: session.user.email,
-    //     },
-    //   },
-    // });
+  // if (session) {
+  //   // const entries = await prisma.entry.findMany({
+  //   //   where: {
+  //   //     User: {
+  //   //       email: session.user.email,
+  //   //     },
+  //   //   },
+  //   // });
 
-    return {
-      props: {
-        loggedIn: true,
-      },
-    };
-  }
+  //   return {
+  //     props: {
+  //       loggedIn: true,
+  //     },
+  //   };
+  // }
 
-  if (!session) {
-    return {
-      props: {
-        loggedIn: false,
-      },
-    };
+  // if (!session) {
+  //   return {
+  //     props: {
+  //       loggedIn: false,
+  //     },
+  //   };
+  // }
+
+  return {
+    props: {
+      loggedIn: true,
+    }
   }
 };

@@ -47,9 +47,9 @@ function PlacesFeed(props: Props): JSX.Element {
                   href={`/places/${encodeURIComponent(
                     place.name.replace(' ', '-')
                   )}`}>
-                  <a>
-                    <h3>{place.name}</h3>
-                  </a>
+
+                  <h3>{place.name}</h3>
+
                 </Link>
                 <p>{place.address}</p>
               </li>

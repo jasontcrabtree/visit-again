@@ -22,7 +22,7 @@ const LoginButtonStyles = styled.div`
   }
 
   .userInitial {
-    background-color: var(--emerald-800);
+    background-color: #94a3b8;
     width: 40px;
     height: 40px;
     border-radius: 96px;
@@ -60,15 +60,15 @@ export default function LoginButton(): JSX.Element {
     const userInitials = getInitials(session?.user.name);
     return (
       <LoginButtonStyles>
-        <Link href="settings">
-          <a className="userInitial">
-            {/* {session?.user?.image ? (
-              <img src={session?.user?.image} alt={session?.user?.name} />
-            ) : (
-              <span>{userInitials}</span>
-              )} */}
+        <Link href="settings" className="userInitial">
+
+          {session?.user?.image ? (
+            <img src={session?.user?.image} alt={session?.user?.name} />
+          ) : (
             <span>{userInitials}</span>
-          </a>
+          )}
+          {/* <span>{userInitials}</span> */}
+
         </Link>
         <button onClick={() => signOut()}>
           <span>Sign out</span>

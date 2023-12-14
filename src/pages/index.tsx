@@ -1,10 +1,10 @@
 import prisma from '../lib/prisma';
 import { useState } from 'react';
-import EntryFeed from '../components/entryFeed';
-import PlacesFeed from '../components/placesFeed';
+import EntryFeed from '../components/EntryFeed';
+import PlacesFeed from '../components/PlacesFeed';
 import { useSession } from 'next-auth/react';
 import { authOptions } from './api/auth/[...nextauth]';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 
 type Props = {
   name: string;
@@ -16,8 +16,6 @@ type Props = {
 };
 
 export default function Home(props: Props): JSX.Element {
-  // const { data: session } = useSession();
-
   const data = props;
 
   if (!data.userEntries) {
@@ -51,7 +49,7 @@ export const getServerSideProps = async (
     loggedIn: boolean;
   };
 }> => {
-  const session = await unstable_getServerSession(
+  const session = await getServerSession(
     context.req,
     context.res,
     authOptions

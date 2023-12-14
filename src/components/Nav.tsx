@@ -9,7 +9,7 @@ import {
   Waves,
 } from 'phosphor-react';
 import styled from 'styled-components';
-import LoginButton from './loginButton';
+import LoginButton from './LoginButton';
 
 const HeaderStyles = styled.header`
   max-width: 1080px;
@@ -23,7 +23,7 @@ const HeaderStyles = styled.header`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  gap: 24px;
+  gap: 8px;
 
   a {
     min-width: 48px;
@@ -46,7 +46,7 @@ const HeaderStyles = styled.header`
     padding-inline-start: 0;
     display: flex;
     flex-direction: row;
-    gap: 4px;
+    gap: 8px;
   }
 
   .logo {
@@ -58,7 +58,6 @@ const HeaderStyles = styled.header`
   }
 
   @media screen and (max-width: 960px) {
-    .logo,
     .userInitial {
       display: none;
     }
@@ -81,54 +80,39 @@ const HeaderStyles = styled.header`
 export default function Header(): JSX.Element {
   return (
     <HeaderStyles>
-      <Link href="/" passHref>
-        <a className="logo">
-          <Coffee size={24} color="#94a3b8" weight="bold" /> {/* Coffee */}
-          <span>Visit Again</span>
-        </a>
+      <Link href="/" className="logo">
+        <Coffee size={24} color="#94a3b8" weight="bold" /> {/* Coffee */}
+        <span>Visit Again</span>
       </Link>
       <nav>
         <ul>
-          <li>
+          {/* <li>
             <Link href="/">
-              <a>
-                <Waves size={24} color="#94a3b8" weight="bold" />
-                {/* Waves */}
-              </a>
+              <Waves size={24} color="#94a3b8" weight="bold" />
             </Link>
-          </li>
-          <li>
-            <Link href="/search">
-              <a>
-                <MagnifyingGlass size={24} color="#94a3b8" weight="bold" />
-                {/* Search */}
-              </a>
-            </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/add">
-              <a>
-                <PlusCircle size={24} color="#94a3b8" weight="bold" />
-                {/* Plus */}
-              </a>
+              <PlusCircle size={24} color="#94a3b8" weight="bold" />
             </Link>
           </li>
           <li>
             <Link href="/watchlist">
-              <a>
-                <FolderStar size={24} color="#94a3b8" weight="bold" />
-                {/* Star */}
-              </a>
+              <FolderStar size={24} color="#94a3b8" weight="bold" />
             </Link>
           </li>
-          <li>
+          {/* TODO: Implement search */}
+          {/* <li>
+            <Link href="/search">
+              <MagnifyingGlass size={24} color="#94a3b8" weight="bold" />
+            </Link>
+          </li> */}
+          {/* TODO: Implement settings */}
+          {/* <li>
             <Link href="/settings">
-              <a>
-                <Gear size={24} color="#94a3b8" weight="bold" />
-                {/* Cog */}
-              </a>
+              <Gear size={24} color="#94a3b8" weight="bold" />
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <LoginButton />

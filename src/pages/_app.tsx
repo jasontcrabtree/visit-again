@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import '../styles/reset.css';
 import '../styles/globals.css';
-import Header from '../components/header';
+import Header from '../components/Nav';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (

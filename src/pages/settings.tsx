@@ -1,5 +1,5 @@
 import { authOptions } from './api/auth/[...nextauth]';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 
 type Props = {
   name: string;
@@ -20,7 +20,7 @@ export default function Home(props: Props): JSX.Element {
 
   return (
     <main>
-      <h1>Lets Visit Again</h1>
+      <h1>User Settings</h1>
     </main>
   );
 }
@@ -32,7 +32,7 @@ export const getServerSideProps = async (
     loggedIn: boolean;
   };
 }> => {
-  const session = await unstable_getServerSession(
+  const session = await getServerSession(
     context.req,
     context.res,
     authOptions

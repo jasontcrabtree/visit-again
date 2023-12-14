@@ -12,7 +12,15 @@
     "**/.vscode": true,
     "**/.gitignore": true,
     "next.config.js": true,
-    ".swc": true
+    ".swc": true,
+    "**/tsconfig.json": true,
+    "**/.eslintrc": true,
+    "**/next-env.d.ts": true
   },
-  "explorerExclude.backup": null
+  "explorerExclude.backup": {},
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#1d1d30",
+    "titleBar.inactiveForeground": "#1d1d30",
+    "titleBar.activeBackground": "#6c0f6d"
+  }
 }

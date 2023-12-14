@@ -55,6 +55,9 @@ const EntryFeedStyles = styled.div`
 `;
 
 function EntryFeed(props: Props): JSX.Element {
+
+  console.log('props', props);
+
   const userEntries = props.userEntries.entries;
 
   return (
@@ -90,13 +93,13 @@ function EntryFeed(props: Props): JSX.Element {
                       href={`/places/${encodeURIComponent(
                         entry.place.name.replace(' ', '-')
                       )}`}>
-                      <a>{entry.place.name && entry.place.name}</a>
+                      {entry.place.name && entry.place.name}
                     </Link>
                     {/* <Link
                       href={`/entry/${encodeURIComponent(
                         entry.place.address.replace(' ', '-')
                       )}`}>
-                      <a>{entry.place.address && entry.place.address}</a>
+                      {entry.place.address && entry.place.address}
                     </Link> */}
                   </div>
                 )}
@@ -119,9 +122,8 @@ function EntryFeed(props: Props): JSX.Element {
                   href={`/entry/${encodeURIComponent(
                     entry.entryName.replace(' ', '-')
                   )}`}>
-                  <a>
-                    <h3>{entry.entryName}</h3>
-                  </a>
+
+                  <h3>{entry.entryName}</h3>
                 </Link>
               </li>
             );

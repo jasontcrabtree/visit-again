@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
+import styled from 'styled-components';
 import {
   Coffee,
   FolderStar,
@@ -8,7 +9,7 @@ import {
   PlusCircle,
   Waves,
 } from 'phosphor-react';
-import styled from 'styled-components';
+
 import LoginButton from './LoginButton';
 
 const HeaderStyles = styled.header`

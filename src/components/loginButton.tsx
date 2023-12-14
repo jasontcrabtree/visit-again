@@ -53,7 +53,7 @@ function getInitials(string) {
   return returnedInitals;
 }
 
-export default function LoginButton(): JSX.Element {
+function LoginButton(): JSX.Element {
   const { data: session } = useSession();
 
   if (session) {
@@ -86,3 +86,5 @@ export default function LoginButton(): JSX.Element {
     </LoginButtonStyles>
   );
 }
+
+export default LoginButton;

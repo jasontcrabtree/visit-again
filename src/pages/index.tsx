@@ -20,25 +20,24 @@ type Props = {
 
 const StyledLoggedOutView = styled.main`
 display: flex;
-flex-direction: column;
+flex-direction: column-reverse;
 justify-content: space-between;
 width: 100%;
 gap: 24px;
 
-height: calc(100vh - 96px);
+
 
 section {
-  width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
 
   color: var(--tw-green-800);
 
-  padding: 24px 0 24px 24px;
+  padding: 16px;
 
   h1 {
     font-size: 72px;
@@ -126,15 +125,26 @@ section {
 }
 
 .hero-image {
-  width: 50%;
   object-fit: cover;
-  height: calc(100vh - 96px);
+  height: 100%;
+  max-height: 40vw;
 }
 
 @media screen and (min-width: 960px) {
-    overflow: hidden;
+  overflow: hidden;
+  flex-direction: row;
 
-    flex-direction: row;
+  section {
+        width: 50%;
+        padding: 24px 0 24px 24px;
+        gap: 16px;
+    }
+
+    .hero-image {
+      width: 50%;
+      height: calc(100vh - 96px);
+      max-height: unset;
+    }
   }
 `
 

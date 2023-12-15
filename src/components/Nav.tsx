@@ -20,7 +20,6 @@ background-image: linear-gradient(270deg, #e0f2fe, var(--tw-blue-200));
 color: var(--tw-grey-700);
 
   nav {
-
   max-width: 1080px;
   margin: 0 auto;
   padding: 24px;
@@ -87,7 +86,6 @@ color: var(--tw-grey-700);
     }
 
     flex-wrap: wrap;
-    justify-content: space-between;
     padding: 16px 24px;
 
     nav {

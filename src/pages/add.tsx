@@ -117,7 +117,7 @@ export default function Home(props: Props): JSX.Element {
 
         <label htmlFor="photos">
           Photos
-          <input type="file" name="photos" accept="image/*" capture />
+          <input type="file" name="photos" accept="image/*" />
         </label>
 
         <label htmlFor="">

@@ -1,7 +1,6 @@
-import { authOptions } from './api/auth/[...nextauth]';
-import { getSession } from 'next-auth/react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import useFormHook from '../hooks/useForm'
 
 type Props = {
   name: string;
@@ -9,31 +8,25 @@ type Props = {
   loggedOut: boolean;
 };
 
-// type Entry = {
-//   entryName: string;
-//   recommended: boolean;
-//   rating: number;
-// };
-
-// type Photo = {
-//   url: string;
-//   alternateText: string;
-// };
-
-// type SingleEntry = {
-//   photos: Photo[];
-//   entryName: string;
-//   recommended: boolean;
-//   place: any;
-//   rating: number;
-//   entryDate: any;
-//   formattedEntryDate: any;
-// };
+const AddFormMain = styled.main`
+  padding: 32px 0 64px 0;
+`
 
 const AddFormStyles = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  width: clamp(480px, 80vw, 960px);
+  margin: 0 auto;
+  background-color: var(--tw-grey-50);
+  border: 1px solid var(--tw-grey-200);
+  padding: 24px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
   input {
     width: 100%;
@@ -48,49 +41,30 @@ const AddFormStyles = styled.form`
 `;
 
 export default function Home(props: Props): JSX.Element {
-  const data = props;
-
-  const [entryName, setEntryName] = useState('');
-  const [recommended, setRecommended] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [photoURL, setPhotoURL] = useState('');
-  const [photoALT, setPhotoALT] = useState('');
-  const [place, setPlace] = useState('');
-  const [region, setRegion] = useState('');
-  const [hour, setHour] = useState(0);
-  const [date, setDate] = useState(0);
-  const [entryDate, setEntryDate] = useState('');
-
-  async function submitNewEntry(e: { preventDefault: () => void }) {
+  async function submitNewEntry(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    try {
-      const body = {
-        entryName,
-        recommended,
-        rating,
-        photoURL,
-        photoALT,
-        place,
-        region,
-        entryDate,
-      };
+    const formData = new FormData(e.target as HTMLFormElement);
+    const formDataAsJson = Object.fromEntries(formData.entries())
 
-      console.log('body', body);
+    try {
+      const apiData = {
+        ...formDataAsJson,
+      }
 
       await fetch('/api/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(apiData),
       });
     } catch (error) {
       console.error(`Error ${error}`);
     }
   }
 
-  if (!data) {
+  if (!props) {
     return (
       <main>
         <h1>No data</h1>
@@ -98,16 +72,25 @@ export default function Home(props: Props): JSX.Element {
     );
   }
 
+  // const { formInputs, handleInputChanges, handleClearForm, handleResetForm } = useFormHook({
+  //   entryName: {
+  //     name: 'entryName',
+  //     value: '',
+  //     isRequired: true,
+  //     errorMessage: 'Please enter a name',
+  //   },
+  // });
+
   return (
-    <main>
-      <h1>Add new entry</h1>
-      <AddFormStyles onSubmit={submitNewEntry}>
+    <AddFormMain>
+      <h1>Add Entry</h1>
+      <AddFormStyles onSubmit={(e) => { submitNewEntry(e) }}>
         <label htmlFor="entry-name">
           Meal Name
           <input
             type="text"
-            name="entry-name"
-            onChange={e => setEntryName(e.target.value)}
+            name="entryName"
+            required={true}
           />
         </label>
 
@@ -116,9 +99,6 @@ export default function Home(props: Props): JSX.Element {
           <input
             type="checkbox"
             name="recommended"
-            onChange={e =>
-              e.target.checked ? setRecommended(true) : setRecommended(false)
-            }
           />
         </label>
 
@@ -127,7 +107,6 @@ export default function Home(props: Props): JSX.Element {
           <input
             type="number"
             defaultValue={1}
-            onChange={e => setRating(e.target.valueAsNumber)}
             name=""
             id=""
             min={1}
@@ -136,34 +115,27 @@ export default function Home(props: Props): JSX.Element {
           />
         </label>
 
-        <label htmlFor="">
-          Photo URL
-          <input type="text" onChange={e => setPhotoURL(e.target.value)} />
-        </label>
-
-        <label htmlFor="">
-          Photo ALT
-          <input type="text" onChange={e => setPhotoALT(e.target.value)} />
+        <label htmlFor="photos">
+          Photos
+          <input type="file" name="photos" accept="image/*" capture />
         </label>
 
         <label htmlFor="">
           Place
-          <input type="text" onChange={e => setPlace(e.target.value)} />
+          <input type="text" />
         </label>
 
         <label htmlFor="">
-          Area [Suburb/City]
-          <input type="text" onChange={e => setRegion(e.target.value)} />
+          Area
+          <input type="text" />
         </label>
 
-        {/* <label htmlFor="">
+        <label htmlFor="">
           Time
           <input
             type="time"
             name=""
-            id=""
             defaultValue={Date.now()}
-            onChange={e => setHour(e.target.valueAsNumber)}
           />
         </label>
 
@@ -172,57 +144,13 @@ export default function Home(props: Props): JSX.Element {
           <input
             type="date"
             name=""
-            id=""
-            onChange={e => setDate(e.target.valueAsNumber)}
           />
-        </label> */}
+        </label>
 
         <input type="submit" value="Add Meal" />
       </AddFormStyles>
-    </main>
+    </AddFormMain>
   );
 }
 
-export const getServerSideProps = async (
-  context: any
-): Promise<{
-  props: {
-    loggedIn: boolean;
-  };
-}> => {
-  // const session = await getServerSession(
-  //   context.req,
-  //   context.res,
-  //   authOptions
-  // );
 
-  // if (session) {
-  //   // const entries = await prisma.entry.findMany({
-  //   //   where: {
-  //   //     User: {
-  //   //       email: session.user.email,
-  //   //     },
-  //   //   },
-  //   // });
-
-  //   return {
-  //     props: {
-  //       loggedIn: true,
-  //     },
-  //   };
-  // }
-
-  // if (!session) {
-  //   return {
-  //     props: {
-  //       loggedIn: false,
-  //     },
-  //   };
-  // }
-
-  return {
-    props: {
-      loggedIn: true,
-    }
-  }
-};

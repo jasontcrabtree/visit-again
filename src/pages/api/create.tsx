@@ -5,6 +5,8 @@ import prisma from '../../lib/prisma';
 
 export default async (req, res) => {
 
+  console.log('req', req);
+
   const { entryName, recommended, rating, photoURL, photoALT, place, region } = req.body;
   // const { entryDate } = values;
 

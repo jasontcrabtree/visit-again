@@ -25,8 +25,6 @@ justify-content: space-between;
 width: 100%;
 gap: 24px;
 
-
-
 section {
   display: flex;
   flex-direction: column;
@@ -41,7 +39,6 @@ section {
 
   h1 {
     font-size: 72px;
-    color: var(--tw-green-500);
   }
 
   p {
@@ -148,6 +145,10 @@ section {
   }
 `
 
+const StylesLoggedInView = styled.main`
+  padding: 32px 0 64px 0;
+`
+
 export default function Home(props: Props):
   JSX.Element {
   console.log('props', props);
@@ -170,7 +171,7 @@ export default function Home(props: Props):
 
           <div className="project">
             <div className='bio'>
-              <Image className='profile-pic' src="https://res.cloudinary.com/jasontcrabtree/image/upload/f_auto,q_auto/v1/Visit%20Again/deom5sslohcrqa0vyqgx" width={64} height={64} alt="profile pic of Jason" />
+              <Image className='profile-pic' src="https://res.cloudinary.com/jasontcrabtree/image/upload/f_auto,q_auto/v1/Visit%20Again/deom5sslohcrqa0vyqgx" width={64} height={64} alt="profile pic of Jason" blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gxYSUNDX1BST0ZJTEUAAQEAAAxITGlubwIQAABtbnRyUkdCI' placeholder='blur' />
               <div>
                 <h2>Demo NextJS App built by <Link href="https://github.com/jasontcrabtree"> Jason Crabtree
                 </Link>
@@ -205,11 +206,11 @@ export default function Home(props: Props):
   }
 
   return (
-    <main>
-      <h1>Lets Visit Again</h1>
+    <StylesLoggedInView>
+      <h1>Home</h1>
       <EntryFeed userEntries={userEntries} />
       {/* <PlacesFeed places={places} /> */}
-    </main>
+    </StylesLoggedInView>
   );
 }
 
@@ -228,17 +229,6 @@ export const getServerSideProps = async (
   );
 
   if (session) {
-    const entries = await prisma.entry.findMany({
-      where: {
-        User: {
-          email: session.user.email,
-        },
-      },
-      orderBy: {
-        entryDate: 'asc',
-      },
-    });
-
     const userEntries = await prisma.user.findUnique({
       where: {
         email: session.user.email,
@@ -261,8 +251,7 @@ export const getServerSideProps = async (
       },
     });
 
-    const places = await prisma.place.findMany();
-
+    // const places = await prisma.place.findMany();
     return {
       props: {
         loggedIn: true,

@@ -23,7 +23,7 @@
 }
 
 html {
-  background: var(--tw-blue-50);
+  background: var(--tw-grey-100);
   color: var(--tw-grey-800);
   font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -75,14 +75,23 @@ input[type='submit'] {
   background-color: var(--tw-grey-50);
 }
 
+.button-small {
+  font-size: 14px;
+  padding: 4px;
+  min-height: unset;
+  line-height: 16px;
+}
+
 button:hover,
 input[type='submit']:hover {
   background-color: var(--tw-blue-500);
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 36px;
   text-align: center;
+  color: var(--tw-green-500);
+  margin-bottom: 16px;
 }
 
 h2 {

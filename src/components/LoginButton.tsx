@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { UserCircleMinus } from 'phosphor-react';
 import styled from 'styled-components';
 import clsx from 'clsx';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import Spinner from './Spinner';
 
 const LoginButtonStyles = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  margin-left: auto;
 
   button {
     padding: 8px 40px;
@@ -42,14 +45,33 @@ const LoginButtonStyles = styled.div`
   }
 `;
 
-function getInitials(string) {
+function getInitials(string: string) {
   const splitString = string.split(' ');
   return splitString.map(word => word.charAt(0)).join('');
 }
 
 export default function LoginButton({ signUpLabel = "Sign in", variation = "" }): JSX.Element {
+  const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
 
+  useEffect(() => {
+    setLoading(false);
+  }, [session]);
+
+  // While loading, display a spinner
+  if (loading) {
+    return (
+      <LoginButtonStyles>
+        <button className={clsx(
+          variation === "ghost" ? "button-ghost" : ""
+        )} onClick={() => signIn()}>
+          <Spinner size={20} colour='--tw-blue-200' />
+        </button>
+      </LoginButtonStyles >
+    );
+  }
+
+  // After loading, if no session
   if (!session) {
     return (
       <LoginButtonStyles>
@@ -60,22 +82,19 @@ export default function LoginButton({ signUpLabel = "Sign in", variation = "" })
     );
   }
 
+  // After loading, if session found
   const userInitials = getInitials(session?.user.name);
   return (
     <LoginButtonStyles>
       <Link href="settings" className="userInitial">
-
-        {/* { session?.user?.image ? (
-        <img src={session?.user?.image} alt={session?.user?.name} />
-      ) : (
-        userInitials && <span>{userInitials}</span>
-        )} */}
-        {userInitials && <span>{userInitials}</span>}
-
+        {session?.user?.image ? (
+          <Image width={56} height={56} src={session?.user?.image} alt={session?.user?.name || "User p"} />
+        ) : (
+          userInitials && <span>{userInitials}</span>
+        )}
       </Link>
       <button onClick={() => signOut()}>
-        <span>Sign out</span>
-        <UserCircleMinus size={24} color="#94a3b8" weight="bold" />
+        Sign out
       </button>
     </LoginButtonStyles>
   );

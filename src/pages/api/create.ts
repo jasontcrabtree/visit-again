@@ -1,65 +1,51 @@
-
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from './auth/[...nextauth]'
+import { authOptions } from './auth/[...nextauth]';
 import prisma from '../../lib/prisma';
 
 export default async (req, res) => {
+  const session = await getServerSession(req, res, authOptions);
+  const dataAsJson = JSON.parse(req.body);
 
-  // console.log('req', req.body);
+  // const { photoURL, photoALT, place, region } =
+  //   req.body;
 
+  // const dataTransformedForPrisma = new Map();
+  // Object.keys(dataAsJson).forEach(key => {
+  //   dataTransformedForPrisma[key] = dataAsJson[key];
+  // });
 
-  console.log('reqNAME', req.body.entryName)
-
-  const { entryName, recommended, rating, photoURL, photoALT, place, region } = req.body;
-  // const { entryDate } = values;
-
-  const transformedData = JSON.parse(JSON.stringify(req.body));
-
-  console.log('transformedData', transformedData)
-
-  const entryDate = new Date();
-  const session = await getServerSession(req, res, authOptions)
+  // console.log('dataTransformedForPrisma', dataTransformedForPrisma);
 
   const data = {
-    entryName: transformedData.entryName,
-    entryDate: entryDate,
-    recommended: recommended === "on" ? true : false,
-    rating: rating,
-    // photos: {
-    //   createMany: {
-    //     data: {
-    //       fileName: photoALT,
-    //       url: photoURL,
-    //       alternateText: photoALT,
-    //     },
-    //   },
-    // },
+    entryName: dataAsJson.entryName,
+    recommended: dataAsJson.recommended === 'true',
+    rating: dataAsJson.rating,
+    entryDate: new Date(),
+    photos: {
+      create: {
+        url: dataAsJson.photoURL,
+        fileName: dataAsJson.fileName,
+        alternateText: dataAsJson.alternateText,
+      },
+    },
     User: {
       connect: {
         email: session?.user?.email,
-      }
+      },
     },
     // type: {
     //   connectOrCreate: {
     //     create: {
     //       name: 'Dinner',
-    //       // iconURL: photoURL,
-    //       // iconAlt: photoALT,
-    //     },
-    //     where: {
-    //       id: '',
     //     },
     //   },
     // },
     // place: {
     //   connectOrCreate: {
     //     create: {
-    //       name: place,
-    //       address: region,
-    //       createdAt: entryDate,
-    //     },
-    //     where: {
-    //       id: '',
+    //       name: dataAsJson.place,
+    //       address: dataAsJson.region,
+    //       createdAt: new Date(),
     //     },
     //   },
     // },

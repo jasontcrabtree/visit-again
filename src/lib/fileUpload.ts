@@ -12,7 +12,8 @@ const resizeImage = (
   file: Blob,
   maxWidth: number,
   maxHeight: number,
-  callback: (resizedBlob: Blob) => void
+  callback: (resizedBlob: Blob) => void,
+  reductionFactor: number = 0.9 // Reduction factor for resizing
 ) => {
   const reader = new FileReader();
 
@@ -23,7 +24,7 @@ const resizeImage = (
       let width = img.width;
       let height = img.height;
       let resizeNeeded =
-        file.size > 2000001 || width > maxWidth || height > maxHeight;
+        file.size > 3800000 || width > maxWidth || height > maxHeight;
 
       if (resizeNeeded) {
         if (width > height) {
@@ -37,15 +38,27 @@ const resizeImage = (
             height = maxHeight;
           }
         }
-      }
 
-      if (resizeNeeded) {
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        canvas.toBlob(callback);
+        canvas.toBlob(resizedBlob => {
+          if (resizedBlob.size > 3800000) {
+            // If resized blob is still larger than 3.8MB, resize again
+            resizeImage(
+              resizedBlob,
+              width * reductionFactor,
+              height * reductionFactor,
+              callback,
+              reductionFactor
+            );
+          } else {
+            // If resized blob is within the size limit, use it
+            callback(resizedBlob);
+          }
+        });
       } else {
         // If no resizing is needed, directly call the callback with the original file
         callback(file);
@@ -53,6 +66,7 @@ const resizeImage = (
     };
     img.src = e.target.result as string;
   };
+
   reader.readAsDataURL(file);
 };
 
@@ -67,17 +81,11 @@ const handleFileUpload = () => {
   const fileUploadEventHandler = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log('running');
-
     const file = e.target.files[0];
-
-    console.log('file', file);
 
     if (file) {
       // Resize image and then upload
-      resizeImage(file, 1400, 860, resizedBlob => {
-        console.log('resizedBlob', resizedBlob);
-
+      resizeImage(file, 1400, 800, resizedBlob => {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(resizedBlob);
         fileReader.onloadend = () => {

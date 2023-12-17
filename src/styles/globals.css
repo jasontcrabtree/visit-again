@@ -4,6 +4,7 @@
   --tw-blue-500: #3b82f6;
   --tw-blue-800: #1e40af;
 
+  --tw-green-50: #f0fdf4;
   --tw-green-200: #a7f3d0;
   --tw-green-500: #10b981;
   --tw-green-800: #065f46;
@@ -18,7 +19,11 @@
   --tw-grey-700: #334155;
   --tw-grey-800: #1e293b;
   --tw-grey-900: #0f172a;
+
+  --tw-red-50: #fef2f2;
+  --tw-red-500: #ef4444;
   --tw-red-700: #b91c1c;
+
   --tw-green-700: #047857;
 }
 
@@ -69,6 +74,17 @@ input[type='submit'] {
   color: var(--tw-grey-50);
 }
 
+.no-button {
+  background-color: transparent;
+  border: none;
+  color: var(--tw-blue-800);
+  padding: 0 8px;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+}
+
 .button-ghost {
   border: var(--tw-blue-800) 1px solid;
   color: var(--tw-blue-800);
@@ -87,6 +103,12 @@ input[type='submit']:hover {
   background-color: var(--tw-blue-500);
 }
 
+button:disabled,
+button:disabled:hover {
+  background-color: var(--tw-blue-500);
+  cursor: not-allowed;
+}
+
 h1 {
   font-size: 36px;
   text-align: center;
@@ -100,4 +122,11 @@ h2 {
 
 h3 {
   font-size: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }

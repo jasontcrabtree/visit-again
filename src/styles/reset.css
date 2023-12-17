@@ -70,7 +70,7 @@ button,
 textarea,
 select,
 fieldset {
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 8px;
   border: rgb(173, 173, 177) 1px solid;
 }

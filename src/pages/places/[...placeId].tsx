@@ -11,9 +11,6 @@ export default function PlacesPages(props: Props): JSX.Element {
   const router = useRouter();
 
   const data = props;
-
-  console.log(data);
-
   // Grab our ID parameter
 
   // console.log(router.query);

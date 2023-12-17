@@ -151,7 +151,7 @@ const StylesLoggedInView = styled.main`
 
 export default function Home(props: Props):
   JSX.Element {
-  console.log('props', props);
+
   const { userEntries } = props;
 
   if (!props.loggedIn) {

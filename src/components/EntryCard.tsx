@@ -17,7 +17,7 @@ type PhotoTypes = {
 }
 
 export type EntryCardTypes = {
-    key: Key,
+    keyProp: Key,
     recommended: boolean,
     rating: number,
     place: any,
@@ -87,12 +87,12 @@ const addToWatchList = () => {
     console.log('Adding to watchlist')
 }
 
-const EntryCard = ({ key, recommended, rating, place, photos, entryName, entryDate }: EntryCardTypes): JSX.Element => {
+const EntryCard = ({ keyProp, recommended, rating, place, photos, entryName, entryDate }: EntryCardTypes): JSX.Element => {
 
     const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
 
     return (
-        <EntryCardstyles key={key}>
+        <EntryCardstyles key={keyProp}>
             <div className="heading">
                 <div className="heading-bar">
                     <Link

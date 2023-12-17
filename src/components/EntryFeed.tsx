@@ -30,9 +30,8 @@ function EntryFeed({ userEntries }: Props): JSX.Element {
       {userEntries ? (
         <ul>
           {userEntries.map((entry: EntryCardTypes, i: Key) => {
-            console.log('entry', entry);
             return (
-              <EntryCard key={i} rating={entry.rating} entryName={entry.entryName} recommended={entry.recommended} photos={entry.photos} place={entry.place} entryDate={entry.entryDate} />
+              <EntryCard keyProp={i} rating={entry.rating} entryName={entry.entryName} recommended={entry.recommended} photos={entry.photos} place={entry.place} entryDate={entry.entryDate} />
             );
           })}
         </ul>

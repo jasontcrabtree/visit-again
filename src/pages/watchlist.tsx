@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function Home(props: Props): JSX.Element {
-  console.log('props', props)
+
 
 
   if (!props) {

@@ -12,7 +12,7 @@ const lato = Lato({ weight: "400", subsets: ['latin'], preload: true })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session} refetchInterval={0} >
+    <SessionProvider session={pageProps.session} refetchInterval={0}>
       <Head>
         <title>Visit Again</title>
         <link rel="shortcut icon" href="/Favicon.svg" />

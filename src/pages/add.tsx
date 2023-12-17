@@ -1,6 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
-import useFormHook from '../hooks/useForm'
+import { useEffect, useState } from 'react';
+import handleFileUpload from '../lib/fileUpload';
+import Image from 'next/image'
+import Spinner from '../components/Spinner';
 
 type Props = {
   name: string;
@@ -38,14 +40,23 @@ const AddFormStyles = styled.form`
     align-items: flex-start;
     gap: 4px;
   }
+
+  image {
+    height: auto;
+  }
 `;
 
-export default function Home(props: Props): JSX.Element {
-  async function submitNewEntry(e: React.FormEvent<HTMLFormElement>) {
+const Home = (props: Props): React.JSX.Element => {
+  const [uploading, setUploading] = useState(false);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+
+  const submitNewEntry = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
     const formDataAsJson = Object.fromEntries(formData.entries())
+
+    console.log('formDataAsJson', formDataAsJson)
 
     try {
       const apiData = {
@@ -54,14 +65,24 @@ export default function Home(props: Props): JSX.Element {
 
       await fetch('/api/create', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(apiData),
       });
     } catch (error) {
       console.error(`Error ${error}`);
     }
+  }
+
+  const { fileUploadEventHandler, newImageUrl } = handleFileUpload();
+
+  useEffect(() => {
+    if (newImageUrl) {
+      setImagePreviewUrl(newImageUrl);
+      setUploading(false);
+    }
+  }, [newImageUrl]);
+
+  if (newImageUrl) {
+    console.log('newImageUrl', newImageUrl);
   }
 
   if (!props) {
@@ -71,15 +92,6 @@ export default function Home(props: Props): JSX.Element {
       </main>
     );
   }
-
-  // const { formInputs, handleInputChanges, handleClearForm, handleResetForm } = useFormHook({
-  //   entryName: {
-  //     name: 'entryName',
-  //     value: '',
-  //     isRequired: true,
-  //     errorMessage: 'Please enter a name',
-  //   },
-  // });
 
   return (
     <AddFormMain>
@@ -115,36 +127,36 @@ export default function Home(props: Props): JSX.Element {
           />
         </label>
 
-        <label htmlFor="photos">
-          Photos
-          <input type="file" name="photos" accept="image/*" />
-        </label>
+        {imagePreviewUrl ? (
+          <Image src={imagePreviewUrl} width={800}
+            height={560}
+            style={{ width: "100%", height: "auto" }} alt="New uploaded image" />
+        ) : ""}
+
+        {uploading
+          ? <>
+            <Spinner /> Loading
+          </>
+          : (
+            <label htmlFor="photos">
+              Photos
+              <input type="file" name="photos" accept="image/*" onChange={(e) => {
+                setUploading(true);
+                setImagePreviewUrl("")
+                fileUploadEventHandler(e);
+              }} />
+            </label>
+          )}
+
 
         <label htmlFor="">
           Place
-          <input type="text" />
+          <input type="text" name="place" />
         </label>
 
         <label htmlFor="">
           Area
-          <input type="text" />
-        </label>
-
-        <label htmlFor="">
-          Time
-          <input
-            type="time"
-            name=""
-            defaultValue={Date.now()}
-          />
-        </label>
-
-        <label htmlFor="">
-          Date
-          <input
-            type="date"
-            name=""
-          />
+          <input type="text" name="area" />
         </label>
 
         <input type="submit" value="Add Meal" />
@@ -153,4 +165,4 @@ export default function Home(props: Props): JSX.Element {
   );
 }
 
-
+export default Home;

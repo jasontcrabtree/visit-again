@@ -17,7 +17,8 @@ type PhotoTypes = {
 }
 
 export type EntryCardTypes = {
-    keyProp: Key,
+    id: Key,
+    loadFirst: boolean,
     recommended: boolean,
     rating: number,
     place: any,
@@ -87,19 +88,15 @@ const addToWatchList = () => {
     console.log('Adding to watchlist')
 }
 
-const EntryCard = ({ keyProp, recommended, rating, place, photos, entryName, entryDate }: EntryCardTypes): JSX.Element => {
+const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryName, entryDate }: EntryCardTypes): JSX.Element => {
 
-    const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
+    // const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
 
     return (
-        <EntryCardstyles key={keyProp}>
+        <EntryCardstyles>
             <div className="heading">
                 <div className="heading-bar">
-                    <Link
-                        href={`/entry/${encodeURIComponent(
-                            entryName.replace(' ', '-').toLowerCase()
-                        )}`}>
-
+                    <Link href={`/entry/${id}`}>
                         <h3>{entryName}</h3>
                     </Link>
                     <button className="button-small" onClick={
@@ -128,41 +125,42 @@ const EntryCard = ({ keyProp, recommended, rating, place, photos, entryName, ent
                 )}
             </div>
 
-            <div className="meta">
-                {/* {recommended ? (
+            {/* {recommended ? (
                     <ThumbsUp weight="duotone" size={24} color="var(--tw-green-500)" />
                 ) : (
                     <ThumbsDown weight="duotone" size={24} color="var(--tw-grey-500)" />
                 )} */}
-
-                {formattedEntryDate && (
+            <div className="meta">
+                {/* {formattedEntryDate && (
                     <div>{formattedEntryDate.toString()}</div>
-                )}
+                )} */}
 
                 {rating && (
-                    Array.from({ length: rating }, () => {
+                    Array.from({ length: rating }, (_, index) => {
                         return (
-                            <Star size={24} weight="duotone" color="var(--tw-green-500)" />
+                            <Star key={index} size={24} weight="duotone" color="var(--tw-green-500)" />
                         )
                     })
                 )}
             </div>
 
             {photos.length > 0 ? (
-                photos.map((photo: PhotoTypes) => {
-                    return (
-                        <Image
-                            key={photo.photoId}
-                            src={photo.url}
-                            alt={photo.alternateText}
-                            width="400"
-                            height="260"
-                        />
-                    );
+                photos.map((photo: PhotoTypes, index) => {
+                    if (photo.url) {
+                        return (
+                            <Image
+                                priority={loadFirst}
+                                key={index}
+                                src={photo.url}
+                                alt={photo.alternateText}
+                                width={400}
+                                height={260}
+                            />
+                        );
+                    }
+                    else return null;
                 })
-            ) : (
-                <Image src="https://res.cloudinary.com/jasontcrabtree/image/upload/f_auto,q_auto/v1/Visit%20Again/utudza0vznogeam52la7" width="400" height="260" alt="Donuts, donuts, donuts" />
-            )}
+            ) : null}
         </EntryCardstyles>
     )
 }

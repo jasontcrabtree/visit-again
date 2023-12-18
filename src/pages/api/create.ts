@@ -21,6 +21,7 @@ export default async (req, res) => {
     recommended: dataAsJson.recommended === 'true',
     rating: dataAsJson.rating,
     entryDate: new Date(),
+    description: dataAsJson.description,
     photos: {
       create: {
         url: dataAsJson.photoURL,

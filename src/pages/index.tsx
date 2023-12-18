@@ -243,15 +243,13 @@ export const getServerSideProps = async (
             photos: {},
             place: {},
           },
-          // select: {
-          //   place: {},
-          //   photos: {},
-          // },
         },
       },
     });
 
+    console.log('serverSideProps userEntries', userEntries);
     // const places = await prisma.place.findMany();
+
     return {
       props: {
         loggedIn: true,

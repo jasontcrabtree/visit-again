@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Spinner from '../components/Spinner';
 import { Star, ThumbsUp, ThumbsDown } from 'phosphor-react';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 type Props = {
   name: string;
@@ -32,8 +33,10 @@ const AddFormStyles = styled.form`
     width: 100%;
   }
 
-  image {
+  img {
     height: auto;
+    max-height: 560px;
+    object-fit: cover;
   }
 
   .recommended-group {
@@ -190,12 +193,16 @@ const Home = (props: Props): React.JSX.Element => {
         setSubmitting(false);
         setImagePreviewUrl('');
         setRatingState(0);
+        toast.success('Congrats, new Entry Saved!', {})
         nextRouter.push('/');
       }
     } catch (error) {
       console.error(`Error ${error}`);
+      toast.error(`There was a problem saving your entry ${error}`, {})
     }
   }
+
+
 
   if (!props) {
     return (
@@ -289,8 +296,7 @@ const Home = (props: Props): React.JSX.Element => {
             </label>
           )}
 
-
-        <label htmlFor="">
+        {/* <label htmlFor="">
           Place
           <input type="text" name="place" />
         </label>
@@ -298,7 +304,7 @@ const Home = (props: Props): React.JSX.Element => {
         <label htmlFor="">
           Area
           <input type="text" name="area" />
-        </label>
+        </label> */}
 
         {submitting || uploading
           ? (

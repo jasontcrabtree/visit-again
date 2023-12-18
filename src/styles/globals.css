@@ -41,6 +41,7 @@ main {
 }
 
 img {
+  height: auto;
   width: 100%;
   object-fit: contain;
 }

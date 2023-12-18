@@ -24,14 +24,14 @@ const EntryFeedStyles = styled.div`
 `;
 
 function EntryFeed({ userEntries }: Props): JSX.Element {
-  console.log('userEntries', userEntries)
+  console.log('userEntries', userEntries);
   return (
     <EntryFeedStyles className="entries">
       {userEntries ? (
         <ul>
-          {userEntries.map((entry: EntryCardTypes, i: Key) => {
+          {userEntries.map((entry: EntryCardTypes, i) => {
             return (
-              <EntryCard keyProp={i} rating={entry.rating} entryName={entry.entryName} recommended={entry.recommended} photos={entry.photos} place={entry.place} entryDate={entry.entryDate} />
+              <EntryCard id={entry.id} loadFirst={i === 0} key={i} rating={entry.rating} entryName={entry.entryName} recommended={entry.recommended} photos={entry.photos} place={entry.place} entryDate={entry.entryDate} />
             );
           })}
         </ul>

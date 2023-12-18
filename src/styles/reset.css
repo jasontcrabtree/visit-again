@@ -72,7 +72,7 @@ select,
 fieldset {
   border-radius: 4px;
   padding: 8px;
-  border: rgb(173, 173, 177) 1px solid;
+  border: var(--tw-grey-300) 1px solid;
 }
 
 input[type='submit'] {
@@ -90,6 +90,7 @@ label {
 /* Flex Texarea */
 textarea {
   display: flex;
+  width: 100%;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */

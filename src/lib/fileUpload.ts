@@ -1,4 +1,4 @@
-import useCloudinaryUpload from '../hooks/useCloudinaryUpload';
+import useCloudinaryUpload from '../hooks/use-image-upload';
 
 const resizeImage = (
   file: Blob,

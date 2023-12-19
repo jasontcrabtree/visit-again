@@ -9,6 +9,7 @@ import {
     Bookmarks
 } from 'phosphor-react';
 import styled from "styled-components";
+import ShareGroup from "./ShareGroup";
 
 type PhotoTypes = {
     url: string,
@@ -90,7 +91,7 @@ const addToWatchList = () => {
 
 const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryName, entryDate }: EntryCardTypes): JSX.Element => {
 
-    // const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
+    const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
 
     return (
         <EntryCardstyles>
@@ -99,12 +100,7 @@ const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryNam
                     <Link href={`/entry/${id}`}>
                         <h3>{entryName}</h3>
                     </Link>
-                    <button className="button-small" onClick={
-                        () => addToWatchList()}
-                    >
-                        <Bookmarks size={20} color="white" weight="bold" />
-                        Watchlist
-                    </button>
+                    <ShareGroup />
                 </div>
 
                 {place && (
@@ -125,15 +121,10 @@ const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryNam
                 )}
             </div>
 
-            {/* {recommended ? (
-                    <ThumbsUp weight="duotone" size={24} color="var(--tw-green-500)" />
-                ) : (
-                    <ThumbsDown weight="duotone" size={24} color="var(--tw-grey-500)" />
-                )} */}
             <div className="meta">
-                {/* {formattedEntryDate && (
+                {formattedEntryDate && (
                     <div>{formattedEntryDate.toString()}</div>
-                )} */}
+                )}
 
                 {rating && (
                     Array.from({ length: rating }, (_, index) => {

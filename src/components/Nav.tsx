@@ -106,11 +106,13 @@ color: var(--tw-grey-700);
     }
   }
 
-  .mobile-wrapper {
-    display: flex;
-	  justify-content: space-between;
-	  gap: 8px;
-	  width: 100%;
+  @media screen and (min-width: 760px) {
+    .mobile-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+    }
   }
   }
 
@@ -134,6 +136,8 @@ color: var(--tw-grey-700);
         padding: 24px;
         backdrop-filter: blur(200px);
         font-size: 18px;
+        flex-direction: column;
+        justify-content: flex-start;
 
         ul {
           padding-bottom: 24px;

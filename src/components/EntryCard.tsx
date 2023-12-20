@@ -87,9 +87,6 @@ const EntryCardstyles = styled.li`
 `
 
 const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryName, entryDate, classes, size }: EntryCardTypes): JSX.Element => {
-
-    console.log('DATA', id, entryName);
-
     return (
         <EntryCardstyles className={classes}>
             <div className="heading">

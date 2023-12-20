@@ -1,8 +1,6 @@
-'use client'; // this is Next 13 App Router stuff
-
 import { useEffect, useState } from 'react';
 
-export default function useOrigin() {
+const useOrigin = (): string => {
   const [mounted, setMounted] = useState(false);
   const origin =
     typeof window !== 'undefined' && window.location.origin
@@ -18,4 +16,6 @@ export default function useOrigin() {
   }
 
   return origin;
-}
+};
+
+export default useOrigin;

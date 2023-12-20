@@ -4,10 +4,10 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { format, parseISO } from 'date-fns';
-import { Star, ThumbsUp, Link, Bookmarks } from 'phosphor-react';
-import toast from 'react-hot-toast';
+
+import { Star, ThumbsUp } from 'phosphor-react';
 import ShareGroup from '../../components/ShareGroup';
+import formatDate from '../../lib/format-date';
 
 const StyledEntryMain = styled.main`
   padding: 0 0 32px 0;
@@ -86,15 +86,11 @@ const RecommendedCard = styled.div`
     }
 `
 
+const MealDrinkEntry = ({ loggedIn, data }): React.JSX.Element => {
+  console.log('props', data);
 
-
-export default function MealDrinkEntry(props): InferGetServerSidePropsType<typeof getServerSideProps> {
-  console.log('props', props);
-
-  const { url, alternateText } = props.photos[0];
-  const { entryName, entryDate, description, rating, recommended } = props;
-
-  const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
+  const { url, alternateText } = data.photos[0];
+  const { entryName, entryDate, description, rating, recommended } = data;
 
   return (
     <StyledEntryMain>
@@ -120,17 +116,19 @@ export default function MealDrinkEntry(props): InferGetServerSidePropsType<typeo
               })
             )}
           </div>
-          {formattedEntryDate ? <span>{formattedEntryDate}</span> : ""}
+          {entryDate ? <span>{formatDate(entryDate)}</span> : ""}
         </div>
 
         {description ? <p>{description}</p> : ""}
 
-        <ShareGroup />
+        <ShareGroup id={data.id} entryName={entryName} />
       </div>
 
     </StyledEntryMain>
   );
 }
+
+export default MealDrinkEntry;
 
 export const getServerSideProps = async (context: any) => {
   const session = await getServerSession(
@@ -139,14 +137,14 @@ export const getServerSideProps = async (context: any) => {
     authOptions
   );
 
-  if (!session) {
-    return {
-      props: {
-        loggedIn: false,
-        userEntries: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     props: {
+  //       loggedIn: false,
+  //       userEntries: false,
+  //     },
+  //   };
+  // }
 
   const entryData = await prisma.entry.findUnique({
     where: {
@@ -157,8 +155,13 @@ export const getServerSideProps = async (context: any) => {
     }
   })
 
+  console.log('session', session)
+
   return {
     // This JSON.parse to JSON.stringify is a hack/fix from here https://github.com/vercel/next.js/issues/11993#issuecomment-617916930. As future projects will use React Server actions instead of serverSideProps I'm happy with this for now
-    props: JSON.parse(JSON.stringify(entryData))
+    props: {
+      loggedIn: session,
+      data: JSON.parse(JSON.stringify(entryData))
+    }
   }
 }

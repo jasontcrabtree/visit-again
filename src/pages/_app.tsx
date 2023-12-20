@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <Toaster position="bottom-center" />
       <div className={lato.className}>
-        <Header isLoggedIn={pageProps.loggedIn} />
+        <Header />
         <Component {...pageProps} />
       </div>
     </SessionProvider>

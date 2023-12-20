@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
+import { useSession } from "next-auth/react"
 import styled, { keyframes } from 'styled-components';
 import {
   Coffee,
   FolderStar,
+  Lightning,
   PlusCircle,
 } from 'phosphor-react';
 import LoginButton from './LoginButton';
@@ -25,7 +27,7 @@ color: var(--tw-grey-700);
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 8px;
+  gap: 24px;
 
   a {
     min-width: 48px;
@@ -35,11 +37,20 @@ color: var(--tw-grey-700);
     align-items: center;
     text-decoration: none;
     gap: 4px;
-    color: var(--tw-grey-700);
+    color: var(--tw-blue-500);
+
+    svg {
+      color: var(--tw-blue-500);
+    }
   }
 
   a:hover {
-    color: var(--tw-green-500);
+    color: var(--tw-blue-800);
+
+    svg {
+      color: var(--tw-blue-800);
+      fill: var(--tw-blue-800);
+    }
   }
 
   nav {
@@ -53,6 +64,7 @@ color: var(--tw-grey-700);
     padding-inline-start: 0;
     display: flex;
     flex-direction: row;
+    gap: 24px;
   }
 
   .logo {
@@ -109,12 +121,13 @@ color: var(--tw-grey-700);
     }
 `;
 
-type HeaderProps = {
-  isLoggedIn: boolean;
-}
+const Header = (): JSX.Element => {
+  const {
+    data: session,
+    status
+  } = useSession();
 
-export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
-  if (isLoggedIn === false) {
+  if (status === "unauthenticated") {
     return (
       <HeaderStyles>
         <nav>
@@ -122,6 +135,11 @@ export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
             <Coffee size={24} weight="bold" />
             <span className={rockSalt.className}>Visit Again</span>
           </Link>
+          <Link href="/explore">
+            <Lightning size={24} weight="bold" />
+            Explore
+          </Link>
+          <LoginButton signUpLabel="Sign Up" />
         </nav>
       </HeaderStyles>
     )
@@ -136,13 +154,21 @@ export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
         </Link>
         <ul>
           <li>
+            <Link href="/explore">
+              <Lightning size={24} weight="bold" />
+              Explore
+            </Link>
+          </li>
+          <li>
             <Link href="/add">
               <PlusCircle size={24} weight="bold" />
+              Add
             </Link>
           </li>
           <li>
             <Link href="/watchlist">
               <FolderStar size={24} weight="bold" />
+              Watchlist
             </Link>
           </li>
           {/* TODO: Implement search */}
@@ -163,3 +189,5 @@ export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
     </HeaderStyles>
   );
 }
+
+export default Header;

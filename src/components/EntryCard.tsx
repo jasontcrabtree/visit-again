@@ -1,5 +1,3 @@
-import { Key } from "react";
-import { parseISO, format } from 'date-fns';
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -10,6 +8,7 @@ import {
 } from 'phosphor-react';
 import styled from "styled-components";
 import ShareGroup from "./ShareGroup";
+import formatDate from '../lib/format-date';
 
 type PhotoTypes = {
     url: string,
@@ -18,13 +17,15 @@ type PhotoTypes = {
 }
 
 export type EntryCardTypes = {
-    id: Key,
-    loadFirst: boolean,
-    recommended: boolean,
-    rating: number,
-    place: any,
+    id?: string,
+    loadFirst?: boolean,
+    recommended?: boolean,
+    rating?: number,
+    place?: any,
+    classes?: string,
+    size?: string,
     entryName: string,
-    entryDate: string
+    entryDate?: string
     photos: PhotoTypes[],
 }
 
@@ -89,18 +90,20 @@ const addToWatchList = () => {
     console.log('Adding to watchlist')
 }
 
-const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryName, entryDate }: EntryCardTypes): JSX.Element => {
-
-    const formattedEntryDate = format(parseISO(entryDate), "EEEE, do MMM yyyy");
+const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryName, entryDate, classes, size }: EntryCardTypes): JSX.Element => {
 
     return (
-        <EntryCardstyles>
+        <EntryCardstyles className={classes}>
             <div className="heading">
                 <div className="heading-bar">
                     <Link href={`/entry/${id}`}>
                         <h3>{entryName}</h3>
                     </Link>
-                    <ShareGroup />
+
+                    {size !== "small"
+                        ? <ShareGroup id={id} entryName={entryName} />
+                        : ""
+                    }
                 </div>
 
                 {place && (
@@ -122,8 +125,8 @@ const EntryCard = ({ id, loadFirst, recommended, rating, place, photos, entryNam
             </div>
 
             <div className="meta">
-                {formattedEntryDate && (
-                    <div>{formattedEntryDate.toString()}</div>
+                {entryDate && (
+                    <div>{formatDate(entryDate)}</div>
                 )}
 
                 {rating && (

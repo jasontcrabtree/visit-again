@@ -3,6 +3,8 @@ import toast from "react-hot-toast";
 import styled from "styled-components";
 import useOrigin from "../hooks/use-origin";
 import { signIn, useSession } from "next-auth/react";
+import Spinner from "./Spinner";
+import { useState } from "react";
 
 const StyledShareGroup = styled.div`
     margin-top: 24px;
@@ -24,6 +26,9 @@ const StyledShareGroup = styled.div`
 const ShareGroup = ({ id, entryName }: {
     id: string, entryName: string
 }) => {
+
+    const [isSavingToWatchlist, setIsSavingToWatchlist] = useState(false)
+
     const originUrl = useOrigin();
     const userSession = useSession();
 
@@ -41,13 +46,17 @@ const ShareGroup = ({ id, entryName }: {
             } else if (res.status === 200) {
                 toast.success(`${entryName} added to watchlist!`, {})
             }
+
+            if (res) {
+                setIsSavingToWatchlist(false)
+            }
         } catch (error) {
             toast.error(`There was a problem saving your entry ${error}`, {})
         }
     }
 
     return (
-        <StyledShareGroup>
+        <StyledShareGroup className="share-group">
             <button onClick={() => {
                 navigator.clipboard.writeText(`${originUrl}/entry/${id}`);
                 toast.success((`Link copied: ${originUrl}/entry/${id}`), {})
@@ -55,12 +64,16 @@ const ShareGroup = ({ id, entryName }: {
                 Share <Link size={16} />
             </button>
             <button className="button-ghost"
-                onClick={() => {
+                onClick={(e) => {
+                    e.preventDefault();
+                    setIsSavingToWatchlist(true);
                     userSession.status === "authenticated"
                         ? addToWatchList()
                         : signIn()
                 }}>
-                Watchlist <Bookmarks size={16} />
+                {isSavingToWatchlist
+                    ? (<>Saving <Spinner size={16} /></>)
+                    : (<>Watchlist <Bookmarks size={16} /></>)}
             </button>
         </StyledShareGroup>
     )

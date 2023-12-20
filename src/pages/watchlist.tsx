@@ -8,7 +8,6 @@ import { useSession } from 'next-auth/react';
 import useSWR from 'swr'
 import swrFetcher from '../lib/swr-fetcher';
 import Spinner from '../components/Spinner';
-import Image from 'next/image'
 import EntryCard from '../components/EntryCard';
 
 const StyledWatchListMain = styled.main`

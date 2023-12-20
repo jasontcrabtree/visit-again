@@ -31,15 +31,12 @@ const PlacesFeedStyles = styled.div`
 const PlacesFeed = (props: Props): JSX.Element => {
   const places = props.places;
 
-  //   console.log(places);
-
   return (
     <PlacesFeedStyles className="places">
       <h2>Places</h2>
       {places ? (
         <ul>
           {places.map((place, i) => {
-            // console.log(place);
             return (
               <li key={i}>
                 <Link

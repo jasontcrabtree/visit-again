@@ -86,8 +86,7 @@ const RecommendedCard = styled.div`
     }
 `
 
-const MealDrinkEntry = ({ loggedIn, data }): React.JSX.Element => {
-  console.log('props', data);
+const MealDrinkEntry = ({ data }): React.JSX.Element => {
 
   const { url, alternateText } = data.photos[0];
   const { entryName, entryDate, description, rating, recommended } = data;
@@ -154,8 +153,6 @@ export const getServerSideProps = async (context: any) => {
       photos: true
     }
   })
-
-  console.log('session', session)
 
   return {
     // This JSON.parse to JSON.stringify is a hack/fix from here https://github.com/vercel/next.js/issues/11993#issuecomment-617916930. As future projects will use React Server actions instead of serverSideProps I'm happy with this for now

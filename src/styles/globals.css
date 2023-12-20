@@ -131,3 +131,13 @@ label {
   align-items: flex-start;
   gap: 4px;
 }
+
+.display-none {
+  display: none;
+}
+
+@media screen and (min-width: 760px) {
+  .desktop-display-none {
+    display: none;
+  }
+}

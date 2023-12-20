@@ -1,14 +1,10 @@
-// import { getServerSession } from 'next-auth/next';
-// import { authOptions } from './../auth/[...nextauth]';
 import prisma from '../../../lib/prisma';
 
 export default async (req, res) => {
-  //   const session = await getServerSession(req, res, authOptions);
-
   switch (req.query.method) {
     case 'random':
       const randomEntries: { id: string }[] =
-        await prisma.$queryRaw`SELECT * FROM "Entry" ORDER BY RANDOM() LIMIT 10;`;
+        await prisma.$queryRaw`SELECT * FROM "Entry" WHERE "entryName" IS NOT NULL ORDER BY RANDOM() LIMIT 12;`;
 
       const randomEntryIds = randomEntries.map(entry => entry.id);
 

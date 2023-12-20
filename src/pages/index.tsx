@@ -207,7 +207,7 @@ export default function Home(props: Props):
 
   return (
     <StylesLoggedInView>
-      <h1>Home</h1>
+      <h1>Your Latest Reviews</h1>
       <EntryFeed userEntries={userEntries} />
       {/* <PlacesFeed places={places} /> */}
     </StylesLoggedInView>
@@ -247,7 +247,6 @@ export const getServerSideProps = async (
       },
     });
 
-    console.log('serverSideProps userEntries', userEntries);
     // const places = await prisma.place.findMany();
 
     return {

@@ -24,7 +24,6 @@ const EntryFeedStyles = styled.div`
 `;
 
 function EntryFeed({ userEntries }: Props): JSX.Element {
-  console.log('userEntries', userEntries);
   return (
     <EntryFeedStyles className="entries">
       {userEntries ? (

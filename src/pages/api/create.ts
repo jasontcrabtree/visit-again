@@ -6,16 +6,6 @@ export default async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
   const dataAsJson = JSON.parse(req.body);
 
-  // const { photoURL, photoALT, place, region } =
-  //   req.body;
-
-  // const dataTransformedForPrisma = new Map();
-  // Object.keys(dataAsJson).forEach(key => {
-  //   dataTransformedForPrisma[key] = dataAsJson[key];
-  // });
-
-  // console.log('dataTransformedForPrisma', dataTransformedForPrisma);
-
   const data = {
     entryName: dataAsJson.entryName,
     recommended: dataAsJson.recommended === 'true',

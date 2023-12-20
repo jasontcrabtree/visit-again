@@ -187,7 +187,6 @@ const Home = (props: Props): React.JSX.Element => {
         body: JSON.stringify(formDataAsJson),
       });
 
-      console.log('res', res);
       if (res.status === 200) {
         formRef.current.reset();
         setSubmitting(false);
@@ -202,8 +201,6 @@ const Home = (props: Props): React.JSX.Element => {
     }
   }
 
-
-
   if (!props) {
     return (
       <main>
@@ -217,11 +214,12 @@ const Home = (props: Props): React.JSX.Element => {
       <h1>Add Entry</h1>
       <AddFormStyles ref={formRef} onSubmit={(e) => { submitNewEntry(e) }}>
         <label htmlFor="entry-name">
-          Meal Name
+          Entry Title
           <input
             type="text"
             name="entryName"
             required={true}
+            placeholder=''
           />
         </label>
 
@@ -296,15 +294,15 @@ const Home = (props: Props): React.JSX.Element => {
             </label>
           )}
 
-        {/* <label htmlFor="">
-          Place
-          <input type="text" name="place" />
+        <label htmlFor="">
+          Establishment
+          <input type="text" name="place" placeholder='Venue name ...' />
         </label>
 
         <label htmlFor="">
           Area
-          <input type="text" name="area" />
-        </label> */}
+          <input type="text" name="area" placeholder='City ...' />
+        </label>
 
         {submitting || uploading
           ? (

@@ -9,12 +9,6 @@ type Props = {
 
 export default function PlacesPages(props: Props): JSX.Element {
   const router = useRouter();
-
-  const data = props;
-  // Grab our ID parameter
-
-  // console.log(router.query);
-
   const { placeId } = router.query;
 
   return <div>{placeId ? <h1>{placeId}</h1> : null}</div>;
@@ -32,35 +26,6 @@ export const getServerSideProps = async (
   );
 
   if (session) {
-    // const entries = await prisma.entry.findMany({
-    //   where: {
-    //     User: {
-    //       email: session.user.email,
-    //     },
-    //   },
-    //   orderBy: {
-    //     entryDate: 'asc',
-    //   },
-    // });
-
-    // const userEntries = await prisma.user.findUnique({
-    //   where: {
-    //     email: session.user.email,
-    //   },
-    //   select: {
-    //     name: true,
-    //     entries: {
-    //       orderBy: {
-    //         createdAt: 'desc',
-    //       },
-    //       include: {
-    //         photos: {},
-    //         place: {},
-    //       },
-    //     },
-    //   },
-    // });
-
     const userPlaces = await prisma.user.findUnique({
       where: {
         email: session.user.email,
